@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — Pride Quiz Stats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800&family=Sarabun:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #f8f0ff 0%, #ede0ff 50%, #e0f0ff 100%);
+      --card: rgba(255,255,255,0.85);
+      --text: #1a1a2e;
+      --muted: rgba(60,40,100,0.5);
+      --rainbow: linear-gradient(90deg,#ff6b6b,#ffa040,#ffd700,#60d060,#60a0ff,#b060ff);
+      --sel: linear-gradient(135deg,#c890f8,#d4a0f0,#f0c060);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Sarabun',sans-serif;background:var(--bg);min-height:100vh;padding:32px 16px;color:var(--text);}
+    .wrap{max-width:900px;margin:0 auto;}
+
+    .rainbow-bar{height:5px;background:var(--rainbow);border-radius:100px;margin-bottom:28px;background-size:200%;animation:rb 3s linear infinite;}
+    @keyframes rb{0%{background-position:0%}100%{background-position:200%}}
+
+    h1{font-family:'Kanit',sans-serif;font-size:1.8rem;font-weight:800;color:var(--text);margin-bottom:4px;}
+    .sub{font-size:0.9rem;color:var(--muted);margin-bottom:28px;}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
+    .card{background:var(--card);border-radius:20px;padding:22px 20px;box-shadow:0 4px 20px rgba(160,100,240,0.1);backdrop-filter:blur(8px);}
+    .card-label{font-family:'Kanit',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .card-val{font-family:'Kanit',sans-serif;font-size:2.5rem;font-weight:900;background:var(--sel);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .card-sub{font-size:0.82rem;color:var(--muted);margin-top:4px;}
+
+    .section-title{font-family:'Kanit',sans-serif;font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--text);}
+    .char-list{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+    .char-row{background:var(--card);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 10px rgba(160,100,240,0.07);backdrop-filter:blur(6px);}
+    .char-emoji{font-size:1.6rem;flex-shrink:0;}
+    .char-info{flex:1;}
+    .char-name{font-family:'Kanit',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:2px;}
+    .char-thai{font-size:0.78rem;color:var(--muted);}
+    .char-bar-wrap{flex:2;background:rgba(200,180,240,0.2);border-radius:100px;height:7px;overflow:hidden;}
+    .char-bar{height:100%;border-radius:100px;background:var(--rainbow);background-size:200%;animation:rb 3s linear infinite;transition:width 1s cubic-bezier(0.34,1.56,0.64,1);}
+    .char-count{font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:800;min-width:28px;text-align:right;color:#7040d0;}
+    .char-pct{font-size:0.75rem;color:var(--muted);min-width:38px;text-align:right;}
+
+    table{width:100%;border-collapse:collapse;background:var(--card);border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(160,100,240,0.08);}
+    th{font-family:'Kanit',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:13px 16px;text-align:left;border-bottom:1px solid rgba(200,180,240,0.2);}
+    td{padding:12px 16px;font-size:0.88rem;border-bottom:1px solid rgba(200,180,240,0.1);}
+    tr:last-child td{border-bottom:none;}
+    tr:hover td{background:rgba(200,180,255,0.08);}
+
+    .tag{display:inline-block;font-family:'Kanit',sans-serif;font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:100px;background:rgba(180,100,255,0.12);color:#7040d0;}
+    .actions{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;}
+    .btn{font-family:'Kanit',sans-serif;font-size:0.9rem;font-weight:700;border:none;border-radius:100px;padding:11px 24px;cursor:pointer;transition:transform 0.15s;}
+    .btn:hover{transform:translateY(-1px);}
+    .btn-refresh{background:rgba(180,100,255,0.15);color:#7040d0;}
+    .btn-clear{background:rgba(255,80,80,0.12);color:#d04040;}
+    .empty{text-align:center;padding:48px 20px;color:var(--muted);}
+    .empty span{font-size:2.5rem;display:block;margin-bottom:10px;}
+    @media(max-width:520px){.char-bar-wrap{display:none;}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="rainbow-bar"></div>
+  <h1>🌈 Pride Quiz Dashboard</h1>
+  <p class="sub">สถิติการเล่นควิซ — ข้อมูลเก็บใน localStorage ของเบราว์เซอร์นี้</p>
+
+  <div class="actions">
+    <button class="btn btn-refresh" onclick="load()">🔄 รีเฟรช</button>
+    <button class="btn btn-clear" onclick="clearAll()">🗑️ ล้างข้อมูล</button>
+  </div>
+
+  <div class="grid" id="summaryGrid"></div>
+
+  <div class="section-title">📊 ผลลัพธ์ทั้งหมด</div>
+  <div class="char-list" id="charList"></div>
+
+  <div class="section-title">📋 ประวัติล่าสุด (สูงสุด 100 ครั้ง)</div>
+  <div id="logWrap"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="tracker.js"></script>
+<script>
+function load() {
+  const stats = getStats();
+  renderSummary(stats);
+  renderChars(stats);
+  renderLog(stats);
+}
+
+function renderSummary(s) {
+  const total = s.total || 0;
+  const today = new Date().toISOString().split('T')[0];
+  const todayCnt = (s.daily||{})[today] || 0;
+  const days = Object.keys(s.daily||{}).length;
+  let topName = '—', topEmoji = '?';
+  if (s.characters) {
+    const top = Object.entries(s.characters).sort((a,b)=>b[1]-a[1])[0];
+    if (top && CHARACTERS[top[0]]) {
+      topName = CHARACTERS[top[0]].name;
+      topEmoji = CHARACTERS[top[0]].item || '🎭';
+    }
+  }
+  document.getElementById('summaryGrid').innerHTML = `
+    <div class="card"><div class="card-label">รวมทั้งหมด</div><div class="card-val">${total}</div><div class="card-sub">ครั้ง</div></div>
+    <div class="card"><div class="card-label">วันนี้</div><div class="card-val">${todayCnt}</div><div class="card-sub">${today}</div></div>
+    <div class="card"><div class="card-label">ยอดนิยม</div><div class="card-val" style="font-size:2rem;">${topEmoji}</div><div class="card-sub">${topName}</div></div>
+    <div class="card"><div class="card-label">วันที่มีคนเล่น</div><div class="card-val">${days}</div><div class="card-sub">วัน</div></div>
+  `;
+}
+
+function renderChars(s) {
+  const cc = s.characters || {};
+  const total = s.total || 1;
+  const sorted = Object.values(CHARACTERS).map(c => ({
+    ...c, count: cc[c.id]||0, pct: Math.round(((cc[c.id]||0)/total)*100)
+  })).sort((a,b)=>b.count-a.count);
+  const max = sorted[0]?.count || 1;
+  document.getElementById('charList').innerHTML = sorted.map(c => `
+    <div class="char-row">
+      <div class="char-emoji">${c.item||'🎭'}</div>
+      <div class="char-info">
+        <div class="char-name">${c.name}</div>
+        <div class="char-thai">${c.thai}</div>
+      </div>
+      <div class="char-bar-wrap"><div class="char-bar" style="width:${(c.count/max)*100}%"></div></div>
+      <div class="char-count">${c.count}</div>
+      <div class="char-pct">${c.pct}%</div>
+    </div>
+  `).join('');
+}
+
+function renderLog(s) {
+  const sessions = s.sessions || [];
+  const el = document.getElementById('logWrap');
+  if (!sessions.length) {
+    el.innerHTML = `<div class="empty"><span>🎭</span>ยังไม่มีข้อมูล ลองไปเล่นควิซก่อนนะ!</div>`;
+    return;
+  }
+  el.innerHTML = `<table>
+    <thead><tr><th>#</th><th>คาแรกเตอร์</th><th>ชื่อไทย</th><th>วันที่/เวลา</th></tr></thead>
+    <tbody>${sessions.map((s,i)=>{
+      const c = CHARACTERS[s.charId];
+      return `<tr>
+        <td style="color:var(--muted);font-family:'Kanit',sans-serif;font-weight:600;">${i+1}</td>
+        <td>${c?.item||'?'} <span class="tag">${s.charName}</span></td>
+        <td style="color:var(--muted);font-size:0.82rem;">${c?.thai||'—'}</td>
+        <td style="color:var(--muted);font-size:0.82rem;">${s.date}</td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>`;
+}
+
+function clearAll() {
+  if (confirm('ล้างข้อมูลทั้งหมด?')) {
+    localStorage.removeItem('pride_quiz_v2_stats');
+    load();
+  }
+}
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>คุณเป็นใครในขบวน Pride — Patch The World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+Sans+TH:wght@300;400;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ===== INTRO SCREEN ===== -->
+  <div class="screen active" id="screen-intro">
+    <div class="intro-top">
+      <div class="logos">
+        <img src="images/logopride.png" alt="Logo" width="270px" style="height: auto;"/>
+      </div>
+    </div>
+
+    <div class="intro-spacer"></div>
+
+    <div class="intro-text-block">
+      <h1 class="intro-heading">คุณเป็นใครใน</h1>
+      <h1 class="intro-heading big">PRIDE PARADE</h1>
+      <button class="btn-main" onclick="goToOnboarding()">เริ่มทำแบบทดสอบ →</button>
+    </div>
+
+    <div class="intro-scene">
+      <div class="intro-bubbles">
+        <div class="intro-bubble-left">
+          <span>ขบวน Pride<br/>กำลังจะออกเดินทาง</span>
+          <div class="intro-bubble-dot left-dot"></div>
+        </div>
+        <div class="intro-bubble-right">
+          <span>ไม่มีคำตอบถูกหรือผิด<br/>แค่เลือกที่รู้สึกว่าใช่!</span>
+          <div class="intro-bubble-dot right-dot"></div>
+        </div>
+      </div>
+      <img src="images/home_cha1.png" class="intro-char intro-char-1" alt="Character 1"/>
+      <img src="images/homecha_2.png" class="intro-char intro-char-2" alt="Character 2"/>
+    </div>
+
+  </div>
+
+  <!-- ===== ONBOARDING 1: ถึงเวลาเช็กอิน ===== -->
+  <div class="screen" id="screen-onboard1">
+    <div class="top-bar">
+      <div class="logos-small">
+        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
+        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
+      </div>
+      <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:5%"></div></div>
+    </div>
+    <div class="onboard-scene">
+      <div class="speech-bubble center big-bubble fade-in-up">
+        <span>ถึงเวลาเช็กอินตำแหน่งหัวใจ...</span>
+      </div>
+      <div class="onboard-character main-char fade-in-up" style="animation-delay:0.2s">
+        <div class="main-char-body"></div>
+        <div class="main-char-flag">🏳️‍🌈</div>
+      </div>
+      <div class="onboard-side-chars">
+        <div class="side-char left" style="--c:#ffb870;animation-delay:0.4s"></div>
+        <div class="side-char right" style="--c:#a8d8f0;animation-delay:0.6s"></div>
+      </div>
+    </div>
+    <button class="btn-skip" onclick="goToOnboard2()">skip →</button>
+  </div>
+
+  <!-- ===== ONBOARDING 2: นี่คือขบวนแห่งความภูมิใจ ===== -->
+  <div class="screen" id="screen-onboard2">
+    <div class="top-bar">
+      <div class="logos-small">
+        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
+        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
+      </div>
+      <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:5%"></div></div>
+    </div>
+    <div class="onboard-scene">
+      <div class="speech-bubble center big-bubble fade-in-up">
+        <span>นี่คือ "ขบวนแห่งความภูมิใจ"<br/>และต่อจากนี้... คือพื้นที่<br/>ที่คุณจะได้ประกาศตัวตน 🌈</span>
+      </div>
+      <div class="onboard-character main-char fade-in-up" style="animation-delay:0.2s">
+        <div class="main-char-body"></div>
+        <div class="main-char-flag">🏳️‍🌈</div>
+      </div>
+      <div class="onboard-side-chars">
+        <div class="side-char left" style="--c:#ffb870;animation-delay:0.4s"></div>
+        <div class="side-char right" style="--c:#a8d8f0;animation-delay:0.6s"></div>
+      </div>
+    </div>
+    <button class="btn-skip" onclick="goToOnboard3()">skip →</button>
+  </div>
+
+  <!-- ===== ONBOARDING 3: เลือกคำตอบที่ใช่ ===== -->
+  <div class="screen" id="screen-onboard3">
+    <div class="top-bar">
+      <div class="logos-small">
+        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
+        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
+      </div>
+      <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:5%"></div></div>
+    </div>
+    <div class="onboard-scene">
+      <div class="speech-bubble center big-bubble fade-in-up">
+        <span>เลือกคำตอบที่ใช่<br/>แล้วก้าวเดินไปในแบบที่เป็นคุณ ✨</span>
+      </div>
+      <div class="onboard-character main-char fade-in-up" style="animation-delay:0.2s">
+        <div class="main-char-body"></div>
+        <div class="main-char-flag">🏳️‍🌈</div>
+      </div>
+      <div class="onboard-side-chars">
+        <div class="side-char left" style="--c:#ffb870;animation-delay:0.4s"></div>
+        <div class="side-char right" style="--c:#a8d8f0;animation-delay:0.6s"></div>
+      </div>
+    </div>
+    <button class="btn-main start-btn" onclick="startQuiz()">มาเริ่มกันเลย!</button>
+  </div>
+
+  <!-- ===== QUESTION SCREEN ===== -->
+  <div class="screen" id="screen-question">
+    <div class="top-bar">
+      <div class="logos-small">
+        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
+        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
+      </div>
+      <div class="rainbow-progress-wrap">
+        <div class="rainbow-progress" id="qProgress"></div>
+      </div>
+    </div>
+
+    <div class="question-area">
+      <div class="question-card" id="questionCard">
+        <h2 class="question-text" id="questionText">Loading...</h2>
+        <div class="options-list" id="optionsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BREAK SCREEN ===== -->
+  <div class="screen" id="screen-break">
+    <div class="top-bar">
+      <div class="logos-small">
+        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
+        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
+      </div>
+      <div class="rainbow-progress-wrap">
+        <div class="rainbow-progress" id="breakProgress"></div>
+      </div>
+    </div>
+
+    <div class="break-scene">
+      <div class="speech-bubble center big-bubble" id="breakBubble">
+        <span id="breakText">...</span>
+      </div>
+      <div class="break-characters" id="breakChars"></div>
+    </div>
+
+    <button class="btn-main break-btn" id="breakBtn" onclick="continueFromBreak()">ไปต่อเลย →</button>
+  </div>
+
+  <!-- ===== LAST Q INTRO ===== -->
+  <div class="screen" id="screen-lastq">
+    <div class="top-bar">
+      <div class="logos-small">
+        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
+        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
+      </div>
+      <div class="rainbow-progress-wrap">
+        <div class="rainbow-progress" style="width:90%"></div>
+      </div>
+    </div>
+    <div class="break-scene">
+      <div class="parade-mini">
+        <div class="mini-flags">🏳️‍🌈🏳️‍⚧️🏳️‍🌈🏳️‍⚧️🏳️‍🌈</div>
+        <div class="mini-chars-row">
+          <div class="mini-char" style="--c:#a8d8f0"></div>
+          <div class="mini-char" style="--c:#ffb8c8"></div>
+          <div class="mini-char" style="--c:#a8d8f0"></div>
+          <div class="mini-char" style="--c:#d4b8f0"></div>
+          <div class="mini-char" style="--c:#c8a8f0"></div>
+        </div>
+      </div>
+      <div class="speech-bubble center big-bubble fade-in-up">
+        <span>คำถามสุดท้ายแล้ว<br/>ตอบให้ตรงใจที่สุดนะ :)</span>
+      </div>
+      <div class="lastq-char-big fade-in-up" style="animation-delay:0.2s">
+        <div class="main-char-body big"></div>
+        <div class="main-char-flag">🏳️‍🌈</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== OUTRO / RESULT SCREEN ===== -->
+  <div class="screen" id="screen-result">
+    <div class="result-header" id="resultHeader">
+      <!-- character art fills here -->
+    </div>
+    <div class="result-body">
+      <div class="result-card" id="resultCard">
+        <h2 class="result-name" id="resultName">The Leader</h2>
+        <p class="result-tagline" id="resultTagline">"หัวหน้าที่ใครก็ตามได้"</p>
+        <div class="result-desc-box">
+          <p id="resultDesc">...</p>
+        </div>
+        <div class="result-match-box" id="resultMatchBox">
+          <span class="match-label">คุณเข้ากันได้ดีกับ...</span>
+          <div class="match-char-row" id="matchCharRow"></div>
+        </div>
+        <div class="result-parades" id="resultParades">
+          <span class="parade-label">คุณเหมาะกับ...</span>
+          <div class="parade-dots" id="paradeDots"></div>
+        </div>
+      </div>
+      <div class="result-actions">
+        <button class="btn-save" onclick="saveImage()">
+          <span class="btn-icon">⬇</span> save image
+        </button>
+        <button class="btn-playagain" onclick="retryQuiz()">
+          <span class="btn-icon">↺</span> play again
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="quiz.js"></script>
+  <script src="tracker.js"></script>
+</body>
+</html>
