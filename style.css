@@ -1274,22 +1274,49 @@ body {
 /* ── SHARED ob-bubble ── */
 .ob-bubble {
   position: absolute;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 50px;
   padding: 20px 30px;
-  box-shadow: 0 4px 24px rgba(160,120,220,0.18);
+  box-shadow: 0 4px 24px rgba(160,120,220,0.15);
   font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
   font-size: clamp(15px, 4.5vw, 20px);
   font-weight: 400;
   color: var(--text-dark);
   line-height: 1.65;
   z-index: 10;
-  min-width: 180px;
-  max-width: 80%;
+  min-width: 200px;
+  max-width: min(300px, 82%);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 .ob-bubble.show { opacity: 1; }
+
+/* Dot tail pointing toward character below */
+.ob-bubble::before {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.62);
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ob-bubble::after {
+  content: '';
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.62);
+  bottom: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .ob-typing-text {
   display: block;
@@ -1388,11 +1415,7 @@ body {
 }
 
 .ob2-bubble {
-   top: 100px;
-  left: 35px;
-  transform: translateX(0%);
-  text-align: center;
-  max-width: 100%;
+  top: clamp(60px, 15vw, 100px);
 }
 
 /* ─────────────────────────────────────
@@ -1442,11 +1465,7 @@ body {
 }
 
 .ob4-bubble {
-  top: 100px;
-  left: 60px;
-  transform: translateX(0%);
-  text-align: center;
-  max-width: 100%;
+  top: clamp(60px, 15vw, 100px);
 }
 
 /* ─────────────────────────────────────
@@ -1488,12 +1507,7 @@ body {
 }
 
 .ob6-bubble {
-  position: absolute;
-  top: 100px;
-  left: 45px;
-  transform: translate(0%, 0%);
-  max-width: 100%;
-  text-align: center;
+  top: clamp(60px, 15vw, 100px);
 }
 
 /* ─────────────────────────────────────
@@ -1535,11 +1549,7 @@ body {
 }
 
 .ob8-bubble {
-  top: 150px;
-  left: 60px;
-  transform: translateX(0%);
-  text-align: center;
-  max-width: 100%;
+  top: clamp(80px, 20vw, 130px);
 }
 
 /* ─────────────────────────────────────
