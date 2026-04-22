@@ -497,144 +497,172 @@ async function saveImage() {
     const cv = document.createElement('canvas');
     cv.width = W; cv.height = H;
     const ctx = cv.getContext('2d');
-
     const matchChar = CHARACTERS[char.matchId];
 
-    // Load all images (errors silently caught)
     const [charImg, logoImg, bgImg, matchImg] = await Promise.all([
-      char.image   ? _loadImg('images/' + char.image)         : Promise.resolve(null),
+      char.image ? _loadImg('images/' + char.image) : Promise.resolve(null),
       _loadImg('images/logopride.png'),
       _loadImg('images/homepage.png'),
       (matchChar && matchChar.image) ? _loadImg('images/' + matchChar.image) : Promise.resolve(null),
     ].map(p => p.catch(() => null)));
 
-    // ── Background gradient ──
+    // ── Background ──
     const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
-    bgGrad.addColorStop(0,    '#f5e8ff');
-    bgGrad.addColorStop(0.45, '#eedcff');
-    bgGrad.addColorStop(1,    '#e8f4ff');
+    bgGrad.addColorStop(0,   '#f0e8ff');
+    bgGrad.addColorStop(0.4, '#e8dcff');
+    bgGrad.addColorStop(1,   '#dce8ff');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, W, H);
 
-    // homepage.png faint bg
     if (bgImg) {
-      ctx.globalAlpha = 0.10;
-      const bh = bgImg.height * (W / bgImg.width);
-      ctx.drawImage(bgImg, 0, 0, W, bh);
+      ctx.globalAlpha = 0.12;
+      ctx.drawImage(bgImg, 0, 0, W, bgImg.height * (W / bgImg.width));
       ctx.globalAlpha = 1;
     }
 
-    // Character color radial accent
+    // Character color radial splash
     const [r1,g1,b1] = _hexRgb(char.c1);
-    const splash = ctx.createRadialGradient(W/2, 540, 60, W/2, 540, 500);
-    splash.addColorStop(0, `rgba(${r1},${g1},${b1},0.55)`);
-    splash.addColorStop(1, `rgba(${r1},${g1},${b1},0)`);
+    const splash = ctx.createRadialGradient(W/2, 500, 100, W/2, 500, 580);
+    splash.addColorStop(0,    `rgba(${r1},${g1},${b1},0.50)`);
+    splash.addColorStop(0.65, `rgba(${r1},${g1},${b1},0.18)`);
+    splash.addColorStop(1,    `rgba(${r1},${g1},${b1},0)`);
     ctx.fillStyle = splash;
     ctx.fillRect(0, 0, W, H);
 
+    // Top rainbow strip
+    const rbPalette = ['#ff6b6b','#ffa040','#ffd700','#60d060','#60a0ff','#b060ff','#ff60b0'];
+    const rbTop = ctx.createLinearGradient(0, 0, W, 0);
+    rbPalette.forEach((c, i, a) => rbTop.addColorStop(i / (a.length - 1), c));
+    ctx.fillStyle = rbTop;
+    ctx.fillRect(0, 0, W, 10);
+
     // ── Logo ──
     if (logoImg) {
-      const lW = 270, lH = logoImg.height * (lW / logoImg.width);
-      ctx.drawImage(logoImg, (W - lW) / 2, 52, lW, lH);
+      const lW = 280, lH = logoImg.height * (lW / logoImg.width);
+      ctx.drawImage(logoImg, (W - lW) / 2, 28, lW, lH);
     }
 
-    // ── Character image ──
-    const CHAR_H = 640;
+    // ── Character image with color glow ──
+    const CHAR_H = 650;
     if (charImg) {
       const cW = charImg.width * (CHAR_H / charImg.height);
-      ctx.drawImage(charImg, (W - cW) / 2, 175, cW, CHAR_H);
+      ctx.save();
+      ctx.shadowColor = `rgba(${r1},${g1},${b1},0.45)`;
+      ctx.shadowBlur = 65; ctx.shadowOffsetY = 20;
+      ctx.drawImage(charImg, (W - cW) / 2, 155, cW, CHAR_H);
+      ctx.restore();
     }
 
     // ── White card ──
-    const CARD_X = 48, CARD_Y = 740;
-    const CARD_W = W - 96, CARD_H = H - CARD_Y - 52;
-    const PX = CARD_X + 68, PW = CARD_W - 136;
+    const CX = 44, CY = 770;
+    const CW = W - 88, CH = H - CY - 44;
+    const PX = CX + 66, PW = CW - 132;
 
-    ctx.shadowColor = 'rgba(140,90,220,0.22)';
-    ctx.shadowBlur = 80; ctx.shadowOffsetY = 18;
-    _rrect(ctx, CARD_X, CARD_Y, CARD_W, CARD_H, 58);
-    ctx.fillStyle = 'rgba(255,255,255,0.94)';
+    ctx.save();
+    ctx.shadowColor = 'rgba(120,80,200,0.28)';
+    ctx.shadowBlur = 90; ctx.shadowOffsetY = 22;
+    _rrect(ctx, CX, CY, CW, CH, 62);
+    const cardGrad = ctx.createLinearGradient(0, CY, 0, CY + CH);
+    cardGrad.addColorStop(0, 'rgba(255,255,255,0.97)');
+    cardGrad.addColorStop(1, 'rgba(248,244,255,0.97)');
+    ctx.fillStyle = cardGrad;
     ctx.fill();
-    ctx.shadowBlur = 0; ctx.shadowColor = 'transparent'; ctx.shadowOffsetY = 0;
+    ctx.restore();
 
-    let cy = CARD_Y + 68;
+    let cy = CY + 74;
 
-    // Name
-    ctx.font = `900 90px "LINE Seed Sans TH", sans-serif`;
-    ctx.fillStyle = '#1a1a2e';
+    // ── Character name — gradient text ──
     ctx.textAlign = 'center';
+    const nameGrad = ctx.createLinearGradient(W/2 - 300, 0, W/2 + 300, 0);
+    nameGrad.addColorStop(0,   '#7730d0');
+    nameGrad.addColorStop(0.5, '#b060f0');
+    nameGrad.addColorStop(1,   '#e050a0');
+    ctx.font = `900 94px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.fillStyle = nameGrad;
     ctx.fillText(char.name, W / 2, cy + 90);
-    cy += 115;
+    cy += 120;
 
-    // Tagline
-    ctx.font = `600 44px "LINE Seed Sans TH", sans-serif`;
-    ctx.fillStyle = '#7766aa';
+    // ── Tagline ──
+    ctx.font = `600 44px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.fillStyle = '#9966bb';
     ctx.fillText(char.tagline, W / 2, cy + 44);
-    cy += 76;
+    cy += 78;
 
-    // Divider
-    ctx.strokeStyle = 'rgba(200,180,240,0.5)';
-    ctx.lineWidth = 2;
+    // ── Rainbow divider ──
+    const rbDiv = ctx.createLinearGradient(PX, 0, PX + PW, 0);
+    ['#ff6b6b','#ffa040','#ffd700','#60d060','#60a0ff','#b060ff'].forEach((c,i,a) =>
+      rbDiv.addColorStop(i / (a.length - 1), c));
+    ctx.strokeStyle = rbDiv; ctx.lineWidth = 3;
     ctx.beginPath(); ctx.moveTo(PX, cy); ctx.lineTo(PX + PW, cy); ctx.stroke();
-    cy += 44;
+    cy += 48;
 
-    // Description box
-    ctx.font = `400 40px "LINE Seed Sans TH", sans-serif`;
-    const descLines = _wrap(ctx, char.desc, PW);
-    const descBoxH = descLines.length * 62 + 44;
-    ctx.fillStyle = 'rgba(240,235,255,0.58)';
-    _rrect(ctx, PX, cy, PW, descBoxH, 22); ctx.fill();
-    cy += 30;
+    // ── Description box ──
+    ctx.font = `400 40px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    const descLines = _wrap(ctx, char.desc, PW - 40);
+    const descBoxH = descLines.length * 64 + 48;
+    ctx.fillStyle = 'rgba(240,234,255,0.62)';
+    _rrect(ctx, PX, cy, PW, descBoxH, 24); ctx.fill();
+    cy += 34;
     ctx.fillStyle = '#444466';
-    descLines.forEach(ln => { cy += 50; ctx.fillText(ln, W / 2, cy); cy += 12; });
-    cy += 28;
+    descLines.forEach(ln => { cy += 54; ctx.fillText(ln, W / 2, cy); cy += 10; });
+    cy += 34;
 
-    // Match section
-    cy += 30;
-    ctx.font = `500 33px "LINE Seed Sans TH", sans-serif`;
-    ctx.fillStyle = '#aaaacc';
-    ctx.textAlign = 'left';
-    ctx.fillText('คุณเข้ากันได้ดีกับ...', PX, cy + 33);
-    cy += 60;
+    // ── Match section label ──
+    cy += 26;
+    ctx.font = `500 34px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.fillStyle = '#aaaacc'; ctx.textAlign = 'left';
+    ctx.fillText('คุณเข้ากันได้ดีกับ...', PX, cy + 34);
+    cy += 62;
 
     if (matchImg && matchChar) {
-      const mH = 108, mW = matchImg.width * (mH / matchImg.height);
-      ctx.fillStyle = 'rgba(240,235,255,0.58)';
-      _rrect(ctx, PX, cy, PW, 128, 22); ctx.fill();
-      ctx.drawImage(matchImg, PX + 18, cy + 10, mW, mH);
-      const tx = PX + mW + 36;
-      ctx.font = `700 42px "LINE Seed Sans TH", sans-serif`;
+      const mH = 120, mW = matchImg.width * (mH / matchImg.height);
+      ctx.fillStyle = 'rgba(240,234,255,0.62)';
+      _rrect(ctx, PX, cy, PW, 150, 24); ctx.fill();
+      ctx.drawImage(matchImg, PX + 22, cy + 15, mW, mH);
+      const tx = PX + mW + 44;
+      ctx.font = `700 44px "LINE Seed Sans TH", "Sarabun", sans-serif`;
       ctx.fillStyle = '#1a1a2e';
-      ctx.fillText(matchChar.name, tx, cy + 56);
-      ctx.font = `400 36px "LINE Seed Sans TH", sans-serif`;
+      ctx.fillText(matchChar.name, tx, cy + 64);
+      ctx.font = `400 36px "LINE Seed Sans TH", "Sarabun", sans-serif`;
       ctx.fillStyle = '#888899';
-      ctx.fillText(matchChar.thai, tx, cy + 102);
+      ctx.fillText(matchChar.thai, tx, cy + 114);
     }
-    cy += 148;
+    cy += 174;
 
-    // Parade dots
+    // ── Parade section ──
     if (char.parades && char.parades.length) {
-      ctx.font = `500 33px "LINE Seed Sans TH", sans-serif`;
-      ctx.fillStyle = '#aaaacc';
-      ctx.textAlign = 'left';
-      ctx.fillText('คุณเหมาะกับ...', PX, cy + 33);
-      cy += 60;
-      let dx2 = PX;
-      char.parades.forEach(p => {
-        ctx.beginPath(); ctx.arc(dx2 + 15, cy + 15, 15, 0, Math.PI * 2);
+      cy += 24;
+      ctx.font = `500 34px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+      ctx.fillStyle = '#aaaacc'; ctx.textAlign = 'left';
+      ctx.fillText('คุณเหมาะกับ...', PX, cy + 34);
+      cy += 62;
+      // Center parade dots
+      ctx.font = `600 38px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+      const DR = 18, DG = 18, IG = 50;
+      const items = char.parades.map(p => ({ ...p, tw: ctx.measureText(p.label).width }));
+      const totalW = items.reduce((s, p) => s + DR * 2 + DG + p.tw, 0) + IG * (items.length - 1);
+      let dx = (W - totalW) / 2;
+      items.forEach(p => {
+        ctx.beginPath(); ctx.arc(dx + DR, cy + DR, DR, 0, Math.PI * 2);
         ctx.fillStyle = p.color; ctx.fill();
-        ctx.font = `600 36px "LINE Seed Sans TH", sans-serif`;
         ctx.fillStyle = '#1a1a2e'; ctx.textAlign = 'left';
-        ctx.fillText(p.label, dx2 + 40, cy + 22);
-        dx2 += ctx.measureText(p.label).width + 78;
+        ctx.fillText(p.label, dx + DR * 2 + DG, cy + DR + 13);
+        dx += DR * 2 + DG + p.tw + IG;
       });
+      cy += 54;
     }
 
-    // Footer hashtag (bottom of card)
-    ctx.font = `500 33px "LINE Seed Sans TH", sans-serif`;
-    ctx.fillStyle = 'rgba(150,120,210,0.65)';
+    // ── Footer — rainbow bar + hashtags ──
+    const footY = CY + CH - 90;
+    const rbFoot = ctx.createLinearGradient(CX + 80, 0, CX + CW - 80, 0);
+    ['#ff6b6b','#ffa040','#ffd700','#60d060','#60a0ff','#b060ff'].forEach((c,i,a) =>
+      rbFoot.addColorStop(i / (a.length - 1), c));
+    _rrect(ctx, CX + 80, footY - 18, CW - 160, 5, 3);
+    ctx.fillStyle = rbFoot; ctx.fill();
+    ctx.font = `500 32px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.fillStyle = 'rgba(140,100,210,0.72)';
     ctx.textAlign = 'center';
-    ctx.fillText('#PatchTheWorld  #BangkokPride  🏳️‍🌈', W / 2, CARD_Y + CARD_H - 48);
+    ctx.fillText('#PatchTheWorld   #BangkokPride', W / 2, footY + 28);
 
     // ── Download ──
     const link = document.createElement('a');
@@ -645,7 +673,7 @@ async function saveImage() {
   } catch (err) {
     console.error('Canvas draw error:', err);
     const char = CHARACTERS[resultCharId] || {};
-    const text = `ฉันคือ "${char.name}" (${char.thai || ''}) ในขบวน Pride! 🏳️‍🌈\n#PatchTheWorld #BangkokPride`;
+    const text = `ฉันคือ "${char.name}" (${char.thai || ''}) ในขบวน Pride!\n#PatchTheWorld #BangkokPride`;
     if (navigator.share) navigator.share({ title: 'Pride Quiz', text }).catch(() => {});
     else navigator.clipboard.writeText(text).catch(() => alert(text));
   } finally {

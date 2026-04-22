@@ -3,79 +3,318 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin — Pride Quiz Stats</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800&family=Sarabun:wght@400;600&display=swap" rel="stylesheet"/>
+  <title>Dashboard — Pride Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+Sans+TH:wght@300;400;700;800&family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
   <style>
     :root {
-      --bg: linear-gradient(135deg, #f8f0ff 0%, #ede0ff 50%, #e0f0ff 100%);
-      --card: rgba(255,255,255,0.85);
-      --text: #1a1a2e;
-      --muted: rgba(60,40,100,0.5);
-      --rainbow: linear-gradient(90deg,#ff6b6b,#ffa040,#ffd700,#60d060,#60a0ff,#b060ff);
-      --sel: linear-gradient(135deg,#c890f8,#d4a0f0,#f0c060);
+      --bg-top:   #f5e8ff;
+      --bg-mid:   #eedcff;
+      --bg-bot:   #e8f4ff;
+      --card-bg:  rgba(255,255,255,0.88);
+      --text-dark: #1a1a2e;
+      --text-mid:  #444466;
+      --text-light:#888899;
+      --purple:    #b060f0;
+      --purple-soft: rgba(176,96,240,0.10);
+      --rainbow: linear-gradient(90deg,
+        #ff6b6b 0%, #ffa040 17%, #ffd700 33%,
+        #60d060 50%, #60a0ff 67%, #b060ff 83%, #ff60b0 100%);
+      --sel-grad: linear-gradient(135deg, #c890f8 0%, #d4a0f0 40%, #f0c060 100%);
+      --radius-card: 22px;
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Sarabun',sans-serif;background:var(--bg);min-height:100vh;padding:32px 16px;color:var(--text);}
-    .wrap{max-width:900px;margin:0 auto;}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+      background: linear-gradient(160deg, var(--bg-top) 0%, var(--bg-mid) 40%, var(--bg-bot) 100%);
+      min-height: 100vh;
+      color: var(--text-dark);
+      padding-bottom: 64px;
+    }
 
-    .rainbow-bar{height:5px;background:var(--rainbow);border-radius:100px;margin-bottom:28px;background-size:200%;animation:rb 3s linear infinite;}
-    @keyframes rb{0%{background-position:0%}100%{background-position:200%}}
+    /* ── HEADER ── */
+    .dash-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 24px 0;
+    }
+    .dash-logo { width: 200px; height: auto; display: block; }
 
-    h1{font-family:'Kanit',sans-serif;font-size:1.8rem;font-weight:800;color:var(--text);margin-bottom:4px;}
-    .sub{font-size:0.9rem;color:var(--muted);margin-bottom:28px;}
+    .rainbow-bar {
+      height: 5px;
+      background: var(--rainbow);
+      background-size: 300% 100%;
+      border-radius: 100px;
+      animation: rbScroll 3s linear infinite;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+    @keyframes rbScroll {
+      0%   { background-position: 0% 0%; }
+      100% { background-position: 300% 0%; }
+    }
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
-    .card{background:var(--card);border-radius:20px;padding:22px 20px;box-shadow:0 4px 20px rgba(160,100,240,0.1);backdrop-filter:blur(8px);}
-    .card-label{font-family:'Kanit',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-    .card-val{font-family:'Kanit',sans-serif;font-size:2.5rem;font-weight:900;background:var(--sel);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .card-sub{font-size:0.82rem;color:var(--muted);margin-top:4px;}
+    .dash-titles {
+      text-align: center;
+      margin-top: 18px;
+    }
+    .dash-title {
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+    .dash-sub {
+      font-size: 0.87rem;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
 
-    .section-title{font-family:'Kanit',sans-serif;font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--text);}
-    .char-list{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
-    .char-row{background:var(--card);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 10px rgba(160,100,240,0.07);backdrop-filter:blur(6px);}
-    .char-emoji{font-size:1.6rem;flex-shrink:0;}
-    .char-info{flex:1;}
-    .char-name{font-family:'Kanit',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:2px;}
-    .char-thai{font-size:0.78rem;color:var(--muted);}
-    .char-bar-wrap{flex:2;background:rgba(200,180,240,0.2);border-radius:100px;height:7px;overflow:hidden;}
-    .char-bar{height:100%;border-radius:100px;background:var(--rainbow);background-size:200%;animation:rb 3s linear infinite;transition:width 1s cubic-bezier(0.34,1.56,0.64,1);}
-    .char-count{font-family:'Kanit',sans-serif;font-size:1.1rem;font-weight:800;min-width:28px;text-align:right;color:#7040d0;}
-    .char-pct{font-size:0.75rem;color:var(--muted);min-width:38px;text-align:right;}
+    /* ── WRAP ── */
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 16px; }
 
-    table{width:100%;border-collapse:collapse;background:var(--card);border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(160,100,240,0.08);}
-    th{font-family:'Kanit',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:13px 16px;text-align:left;border-bottom:1px solid rgba(200,180,240,0.2);}
-    td{padding:12px 16px;font-size:0.88rem;border-bottom:1px solid rgba(200,180,240,0.1);}
-    tr:last-child td{border-bottom:none;}
-    tr:hover td{background:rgba(200,180,255,0.08);}
+    /* ── ACTIONS ── */
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin: 28px 0 24px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 100px;
+      padding: 11px 22px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      backdrop-filter: blur(6px);
+    }
+    .btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(140,80,220,0.18); }
+    .btn:active { transform: scale(0.97); }
+    .btn .material-icons-round { font-size: 1.1rem; line-height: 1; }
+    .btn-refresh { background: rgba(176,96,240,0.13); color: var(--purple); }
+    .btn-clear   { background: rgba(255,80,80,0.10);  color: #d04040; }
 
-    .tag{display:inline-block;font-family:'Kanit',sans-serif;font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:100px;background:rgba(180,100,255,0.12);color:#7040d0;}
-    .actions{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;}
-    .btn{font-family:'Kanit',sans-serif;font-size:0.9rem;font-weight:700;border:none;border-radius:100px;padding:11px 24px;cursor:pointer;transition:transform 0.15s;}
-    .btn:hover{transform:translateY(-1px);}
-    .btn-refresh{background:rgba(180,100,255,0.15);color:#7040d0;}
-    .btn-clear{background:rgba(255,80,80,0.12);color:#d04040;}
-    .empty{text-align:center;padding:48px 20px;color:var(--muted);}
-    .empty span{font-size:2.5rem;display:block;margin-bottom:10px;}
-    @media(max-width:520px){.char-bar-wrap{display:none;}}
+    /* ── STAT CARDS ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      padding: 22px 20px;
+      box-shadow: 0 4px 24px rgba(160,100,240,0.10);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+    .stat-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: var(--purple-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .stat-icon .material-icons-round { font-size: 1.35rem; color: var(--purple); }
+    .stat-icon img { width: 36px; height: 36px; object-fit: contain; }
+    .stat-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 6px;
+    }
+    .stat-val {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: var(--sel-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.05;
+    }
+    .stat-val.sm { font-size: 1.35rem; }
+    .stat-sub { font-size: 0.8rem; color: var(--text-light); margin-top: 4px; }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title .material-icons-round { font-size: 1.2rem; color: var(--purple); }
+
+    /* ── CHARACTER LIST ── */
+    .char-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+    .char-row {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 12px rgba(160,100,240,0.07);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.6);
+      transition: transform 0.15s;
+    }
+    .char-row:hover { transform: translateX(4px); }
+    .char-rank {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-light);
+      min-width: 22px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .char-rank.gold   { color: #f0c040; }
+    .char-rank.silver { color: #a0b0c0; }
+    .char-rank.bronze { color: #d08060; }
+    .char-img {
+      width: 52px; height: 52px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 6px rgba(100,60,160,0.18));
+    }
+    .char-info { flex: 1; min-width: 0; }
+    .char-name { font-weight: 800; font-size: 0.95rem; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .char-thai { font-size: 0.78rem; color: var(--text-light); }
+    .char-bar-wrap {
+      flex: 2;
+      background: rgba(200,180,240,0.2);
+      border-radius: 100px;
+      height: 7px;
+      overflow: hidden;
+    }
+    .char-bar {
+      height: 100%;
+      border-radius: 100px;
+      background: var(--rainbow);
+      background-size: 300% 100%;
+      animation: rbScroll 3s linear infinite;
+      transition: width 1.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .char-count { font-size: 1.15rem; font-weight: 900; color: var(--purple); min-width: 30px; text-align: right; }
+    .char-pct   { font-size: 0.75rem; color: var(--text-light); min-width: 40px; text-align: right; }
+
+    /* ── LOG TABLE ── */
+    .table-wrap {
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(160,100,240,0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(200,180,240,0.22);
+    }
+    td {
+      padding: 11px 18px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid rgba(200,180,240,0.10);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(200,180,255,0.06); }
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 100px;
+      background: rgba(176,96,255,0.12);
+      color: var(--purple);
+    }
+    .log-img {
+      width: 32px; height: 32px;
+      object-fit: contain;
+      vertical-align: middle;
+      margin-right: 8px;
+      filter: drop-shadow(0 1px 4px rgba(100,60,160,0.15));
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--text-light);
+    }
+    .empty .material-icons-round {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 14px;
+      color: rgba(176,96,240,0.28);
+    }
+    .empty p { font-size: 0.95rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      .char-bar-wrap { display: none; }
+      .char-pct { display: none; }
+      td:nth-child(3) { display: none; }
+      th:nth-child(3) { display: none; }
+    }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="rainbow-bar"></div>
-  <h1>🌈 Pride Quiz Dashboard</h1>
-  <p class="sub">สถิติการเล่นควิซ — ข้อมูลเก็บใน localStorage ของเบราว์เซอร์นี้</p>
 
+<div class="dash-header">
+  <img src="images/logopride.png" class="dash-logo" alt="Pride Quiz Logo"/>
+  <div class="rainbow-bar"></div>
+  <div class="dash-titles">
+    <h1 class="dash-title">Pride Quiz Dashboard</h1>
+    <p class="dash-sub">สถิติการเล่นควิซ — ข้อมูลเก็บใน localStorage ของเบราว์เซอร์นี้</p>
+  </div>
+</div>
+
+<div class="wrap">
   <div class="actions">
-    <button class="btn btn-refresh" onclick="load()">🔄 รีเฟรช</button>
-    <button class="btn btn-clear" onclick="clearAll()">🗑️ ล้างข้อมูล</button>
+    <button class="btn btn-refresh" onclick="load()">
+      <span class="material-icons-round">refresh</span>รีเฟรช
+    </button>
+    <button class="btn btn-clear" onclick="clearAll()">
+      <span class="material-icons-round">delete_outline</span>ล้างข้อมูล
+    </button>
   </div>
 
   <div class="grid" id="summaryGrid"></div>
 
-  <div class="section-title">📊 ผลลัพธ์ทั้งหมด</div>
+  <div class="section-title">
+    <span class="material-icons-round">leaderboard</span>
+    ผลลัพธ์ทั้งหมด
+  </div>
   <div class="char-list" id="charList"></div>
 
-  <div class="section-title">📋 ประวัติล่าสุด (สูงสุด 100 ครั้ง)</div>
+  <div class="section-title">
+    <span class="material-icons-round">history</span>
+    ประวัติล่าสุด (สูงสุด 100 ครั้ง)
+  </div>
   <div id="logWrap"></div>
 </div>
 
@@ -92,21 +331,42 @@ function load() {
 function renderSummary(s) {
   const total = s.total || 0;
   const today = new Date().toISOString().split('T')[0];
-  const todayCnt = (s.daily||{})[today] || 0;
-  const days = Object.keys(s.daily||{}).length;
-  let topName = '—', topEmoji = '?';
+  const todayCnt = (s.daily || {})[today] || 0;
+  const days = Object.keys(s.daily || {}).length;
+  let topName = '—', topImgTag = '<span class="material-icons-round" style="font-size:1.8rem;color:var(--purple)">star</span>';
   if (s.characters) {
-    const top = Object.entries(s.characters).sort((a,b)=>b[1]-a[1])[0];
+    const top = Object.entries(s.characters).sort((a, b) => b[1] - a[1])[0];
     if (top && CHARACTERS[top[0]]) {
       topName = CHARACTERS[top[0]].name;
-      topEmoji = CHARACTERS[top[0]].item || '🎭';
+      if (CHARACTERS[top[0]].image) {
+        topImgTag = `<img src="images/${encodeURIComponent(CHARACTERS[top[0]].image)}" style="width:36px;height:36px;object-fit:contain;" alt=""/>`;
+      }
     }
   }
   document.getElementById('summaryGrid').innerHTML = `
-    <div class="card"><div class="card-label">รวมทั้งหมด</div><div class="card-val">${total}</div><div class="card-sub">ครั้ง</div></div>
-    <div class="card"><div class="card-label">วันนี้</div><div class="card-val">${todayCnt}</div><div class="card-sub">${today}</div></div>
-    <div class="card"><div class="card-label">ยอดนิยม</div><div class="card-val" style="font-size:2rem;">${topEmoji}</div><div class="card-sub">${topName}</div></div>
-    <div class="card"><div class="card-label">วันที่มีคนเล่น</div><div class="card-val">${days}</div><div class="card-sub">วัน</div></div>
+    <div class="stat-card">
+      <div class="stat-icon"><span class="material-icons-round">group</span></div>
+      <div class="stat-label">รวมทั้งหมด</div>
+      <div class="stat-val">${total}</div>
+      <div class="stat-sub">ครั้ง</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><span class="material-icons-round">today</span></div>
+      <div class="stat-label">วันนี้</div>
+      <div class="stat-val">${todayCnt}</div>
+      <div class="stat-sub">${today}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">${topImgTag}</div>
+      <div class="stat-label">ยอดนิยม</div>
+      <div class="stat-val sm">${topName}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><span class="material-icons-round">calendar_month</span></div>
+      <div class="stat-label">วันที่มีคนเล่น</div>
+      <div class="stat-val">${days}</div>
+      <div class="stat-sub">วัน</div>
+    </div>
   `;
 }
 
@@ -114,17 +374,26 @@ function renderChars(s) {
   const cc = s.characters || {};
   const total = s.total || 1;
   const sorted = Object.values(CHARACTERS).map(c => ({
-    ...c, count: cc[c.id]||0, pct: Math.round(((cc[c.id]||0)/total)*100)
-  })).sort((a,b)=>b.count-a.count);
+    ...c,
+    count: cc[c.id] || 0,
+    pct: Math.round(((cc[c.id] || 0) / total) * 100),
+  })).sort((a, b) => b.count - a.count);
   const max = sorted[0]?.count || 1;
-  document.getElementById('charList').innerHTML = sorted.map(c => `
+  const rankClass = i => i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+
+  document.getElementById('charList').innerHTML = sorted.map((c, i) => `
     <div class="char-row">
-      <div class="char-emoji">${c.item||'🎭'}</div>
+      <div class="char-rank ${rankClass(i)}">${i + 1}</div>
+      ${c.image
+        ? `<img src="images/${encodeURIComponent(c.image)}" class="char-img" alt="${c.name}"/>`
+        : `<div style="width:52px;height:52px;border-radius:50%;background:${c.gradient};flex-shrink:0;"></div>`}
       <div class="char-info">
         <div class="char-name">${c.name}</div>
         <div class="char-thai">${c.thai}</div>
       </div>
-      <div class="char-bar-wrap"><div class="char-bar" style="width:${(c.count/max)*100}%"></div></div>
+      <div class="char-bar-wrap">
+        <div class="char-bar" style="width:${max > 0 ? (c.count / max) * 100 : 0}%"></div>
+      </div>
       <div class="char-count">${c.count}</div>
       <div class="char-pct">${c.pct}%</div>
     </div>
@@ -135,21 +404,40 @@ function renderLog(s) {
   const sessions = s.sessions || [];
   const el = document.getElementById('logWrap');
   if (!sessions.length) {
-    el.innerHTML = `<div class="empty"><span>🎭</span>ยังไม่มีข้อมูล ลองไปเล่นควิซก่อนนะ!</div>`;
+    el.innerHTML = `
+      <div class="empty">
+        <span class="material-icons-round">sentiment_satisfied_alt</span>
+        <p>ยังไม่มีข้อมูล ลองไปเล่นควิซก่อนนะ</p>
+      </div>`;
     return;
   }
-  el.innerHTML = `<table>
-    <thead><tr><th>#</th><th>คาแรกเตอร์</th><th>ชื่อไทย</th><th>วันที่/เวลา</th></tr></thead>
-    <tbody>${sessions.map((s,i)=>{
-      const c = CHARACTERS[s.charId];
-      return `<tr>
-        <td style="color:var(--muted);font-family:'Kanit',sans-serif;font-weight:600;">${i+1}</td>
-        <td>${c?.item||'?'} <span class="tag">${s.charName}</span></td>
-        <td style="color:var(--muted);font-size:0.82rem;">${c?.thai||'—'}</td>
-        <td style="color:var(--muted);font-size:0.82rem;">${s.date}</td>
-      </tr>`;
-    }).join('')}</tbody>
-  </table>`;
+  el.innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>คาแรกเตอร์</th>
+            <th>ชื่อไทย</th>
+            <th>วันที่/เวลา</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${sessions.map((sess, i) => {
+            const c = CHARACTERS[sess.charId];
+            return `<tr>
+              <td style="color:var(--text-light);font-weight:700;">${i + 1}</td>
+              <td>
+                ${c?.image ? `<img src="images/${encodeURIComponent(c.image)}" class="log-img" alt=""/>` : ''}
+                <span class="tag">${sess.charName}</span>
+              </td>
+              <td style="color:var(--text-light);font-size:0.82rem;">${c?.thai || '—'}</td>
+              <td style="color:var(--text-light);font-size:0.82rem;">${sess.date}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>`;
 }
 
 function clearAll() {
