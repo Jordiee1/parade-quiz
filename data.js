@@ -1,8 +1,3 @@
-// ============================================================
-//  PRIDE QUIZ v2 — DATA.JS
-// ============================================================
-
-// ─── CHARACTERS ─────────────────────────────────────────────
 const CHARACTERS = {
   leader: {
     id: 'leader',
@@ -17,12 +12,11 @@ const CHARACTERS = {
       { label: 'ขบวนสีแดง', color: '#ff6060' },
       { label: 'ขบวนสีเหลือง', color: '#ffd700' },
     ],
-    // Character visual colors
     c1: '#c8a8f0', c2: '#a878d8',
     gradient: 'linear-gradient(145deg, #c8a8f0 0%, #a878d8 60%, #9060c8 100%)',
-    // Blush / detail color
     blush: true,
     item: '📋',
+    image: 'The Leader.png',
   },
   thinker: {
     id: 'thinker',
@@ -41,6 +35,7 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #a8c8f0 0%, #7898d0 60%, #5878c0 100%)',
     blush: false,
     item: '🔍',
+    image: 'The Thinker.png',
   },
   sunshine: {
     id: 'sunshine',
@@ -59,6 +54,7 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #f8e090 0%, #f0b060 60%, #e89040 100%)',
     blush: true,
     item: '☀️',
+    image: 'The Sunshine.png',
   },
   backbone: {
     id: 'backbone',
@@ -66,9 +62,9 @@ const CHARACTERS = {
     tagline: '"เส้นเลือดใหญ่ของขบวน"',
     thai: 'เพื่อนร่วมอุดมการณ์',
     desc: 'คุณไม่เคยทิ้งใครไว้ข้างหลัง เชื่อในสิ่งที่ทำและทำมันด้วยหัวใจทั้งดวง อุดมการณ์ของคุณคือแรงผลักดันที่ทำให้ขบวนเดินต่อไปได้ แม้ในวันที่ยากที่สุด',
-    matchId: 'guardian',
-    matchName: 'The Guardian',
-    matchThai: 'ผู้สนับสนุน',
+    matchId: 'advocate',
+    matchName: 'The Advocate',
+    matchThai: 'นักล่าฝัน',
     parades: [
       { label: 'ขบวนสีเขียว', color: '#50d080' },
       { label: 'ขบวนสีเหลือง', color: '#ffd700' },
@@ -77,6 +73,7 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #a0e0c0 0%, #60c090 60%, #40a870 100%)',
     blush: false,
     item: '💪',
+    image: 'The Backbone.png',
   },
   freeSpirit: {
     id: 'freeSpirit',
@@ -95,13 +92,14 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #b0d8ff 0%, #80b0f0 60%, #6090e0 100%)',
     blush: true,
     item: '🦋',
+    image: 'The Free Spirit.png',
   },
   dreamer: {
     id: 'dreamer',
     name: 'The Dreamer',
     tagline: '"นักฝันผู้สร้างสรรค์"',
     thai: 'นักสร้างสรรค์',
-    desc: 'ความฝันของคุณใหญ่กว่าสิ่งที่ตาเห็น คุณมองโลกในแบบที่คนอื่นยังนึกไม่ถึง และสร้างสรรค์สิ่งใหม่จากทุกแรงบันดาลใจรอบตัว ขบวน Pride ต้องการนักสร้างสรรค์อย่างคุณ',
+    desc: 'ความฝันของคุณใหญ่กว่าสิ่งที่ตาเห็น คุณมองโลกในแบบที่คนอื่นยังนึกไม่ถึง และสร้างสรรค์สิ่งใหม่จากทุกแรงบันลใจรอบตัว ขบวน Pride ต้องการนักสร้างสรรค์อย่างคุณ',
     matchId: 'freeSpirit',
     matchName: 'The Free Spirit',
     matchThai: 'คนรักอิสระ',
@@ -113,6 +111,7 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #f0b8d0 0%, #e080a8 60%, #c86090 100%)',
     blush: true,
     item: '🎨',
+    image: 'The Dreamer.png',
   },
   listener: {
     id: 'listener',
@@ -131,6 +130,7 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #a0c8e8 0%, #70a8d0 60%, #5090c0 100%)',
     blush: false,
     item: '💙',
+    image: 'The Listener.png',
   },
   depth: {
     id: 'depth',
@@ -149,6 +149,7 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #9090d8 0%, #6868c0 60%, #5050a8 100%)',
     blush: false,
     item: '🌊',
+    image: 'The Depth.png',
   },
   observer: {
     id: 'observer',
@@ -167,6 +168,7 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #90d8b0 0%, #60b888 60%, #409868 100%)',
     blush: false,
     item: '🔭',
+    image: 'The Observer .png',
   },
   advocate: {
     id: 'advocate',
@@ -185,148 +187,110 @@ const CHARACTERS = {
     gradient: 'linear-gradient(145deg, #f09080 0%, #e06860 60%, #c84848 100%)',
     blush: false,
     item: '✊',
-  },
-  entertainer: {
-    id: 'entertainer',
-    name: 'The Entertainer',
-    tagline: '"ผู้สร้างรอยยิ้มของขบวน"',
-    thai: 'นักสร้างรอยยิ้มของขบวน',
-    desc: 'ขบวนไม่มีเสียงหัวเราะถ้าขาดคุณไป คุณคือคนที่ทำให้ทุกอย่างสนุก ทุกช่วงเวลายากก็เบาลงได้เพราะคุณอยู่ตรงนั้น พลังงานของคุณติดต่อ',
-    matchId: 'sunshine',
-    matchName: 'The Sunshine',
-    matchThai: 'เสเรปประจำขบวน',
-    parades: [
-      { label: 'ขบวนสีเหลือง', color: '#ffd040' },
-      { label: 'ขบวนสีส้ม', color: '#ff9040' },
-    ],
-    c1: '#f8d070', c2: '#f0a040',
-    gradient: 'linear-gradient(145deg, #f8d070 0%, #f0a040 60%, #e08030 100%)',
-    blush: true,
-    item: '🎭',
-  },
-  guardian: {
-    id: 'guardian',
-    name: 'The Guardian',
-    tagline: '"ผู้ปกป้องที่ไม่เคยเรียกร้อง"',
-    thai: 'ผู้สนับสนุน',
-    desc: 'คุณคือคนที่คอยดูแลทุกคนข้างหลังโดยไม่เรียกร้องการยอมรับ คุณแน่วแน่ ปกป้อง และสนับสนุนอย่างไม่มีเงื่อนไข ขบวนเดินต่อไปได้เพราะมีคุณค้ำอยู่ข้างหลัง',
-    matchId: 'listener',
-    matchName: 'The Listener',
-    matchThai: 'พื้นที่ปลอดภัยในขบวน',
-    parades: [
-      { label: 'ขบวนสีน้ำเงิน', color: '#4080e0' },
-      { label: 'ขบวนสีเขียว', color: '#40c080' },
-    ],
-    c1: '#80b8e8', c2: '#5090d0',
-    gradient: 'linear-gradient(145deg, #80b8e8 0%, #5090d0 60%, #3070b8 100%)',
-    blush: false,
-    item: '🛡️',
+    image: 'The Advocate.png',
   },
 };
 
-// ─── QUESTIONS ────────────────────────────────────────────────
+// ─── QUESTIONS (Adjusted Scores for 10 Chars) ───────────────────
 const QUESTIONS = [
   {
     id: 'q1',
-    text: 'ตอนเจอปัญหาที่ไม่คาดคิด\nคุณมักจะ...',
+    text: 'ตอนเจอปัญหาที่ไม่คาดคิด คุณมักจะ...',
     options: [
       { text: 'หยุดนิ่งแปป… ตั้งสติแล้วค่อย ๆ\nคิดทางออกทีละขั้น', scores: { thinker:3, observer:2, depth:1 } },
-      { text: 'โทรหาคนที่ไว้ใจได้ทันที',              scores: { listener:2, backbone:2, guardian:2 } },
+      { text: 'โทรหาคนที่ไว้ใจได้ทันที',              scores: { listener:3, backbone:3 } },
       { text: 'แก้ปัญหาไปก่อนเลย\nเรื่องนอยด์ค่อยว่ากันทีหลัง', scores: { leader:3, advocate:2, freeSpirit:1 } },
-      { text: 'ปล่อยให้ความรู้สึกนำทางก่อน\nตอนใจเย็นแล้วค่อยว่ากัน', scores: { dreamer:2, depth:2, sunshine:1 } },
+      { text: 'ปล่อยให้ความรู้สึกนำทางก่อน\nตอนใจเย็นแล้วค่อยว่ากัน', scores: { dreamer:3, depth:2, sunshine:1 } },
     ],
   },
   {
     id: 'q2',
-    text: 'เพื่อนมักบอกว่า\nคุณเป็นคนแบบไหน?',
+    text: 'เพื่อนมักบอกว่าคุณเป็นคนแบบไหน?',
     options: [
-      { text: 'ตัวตึงเรื่องความชัวร์ พึ่งพาได้เสมอ',      scores: { backbone:3, guardian:2, leader:1 } },
+      { text: 'ตัวตึงเรื่องความชัวร์ พึ่งพาได้เสมอ',      scores: { backbone:3, leader:2 } },
       { text: 'คิดเยอะนะ แต่พอพูดแล้วโดนมาก',             scores: { thinker:3, depth:2, observer:1 } },
-      { text: 'เอนเนอร์จี้ล้น อยู่ด้วยแล้วสนุกสุดๆ',       scores: { sunshine:3, entertainer:2, freeSpirit:1 } },
-      { text: 'สายซัพพอร์ต ฟังเก่ง\nอยู่ด้วยแล้วสบายใจสุด ๆ', scores: { listener:3, guardian:2, backbone:1 } },
+      { text: 'เอนเนอร์จี้ล้น อยู่ด้วยแล้วสนุกสุดๆ',       scores: { sunshine:3, freeSpirit:2 } },
+      { text: 'สายซัพพอร์ต ฟังเก่ง\nอยู่ด้วยแล้วสบายใจสุด ๆ', scores: { listener:3, backbone:2 } },
     ],
   },
   {
     id: 'q3',
-    text: 'วันที่รู้สึกแย่ที่สุด\nคุณอยากทำอะไร?',
+    text: 'วันที่รู้สึกแย่ที่สุด คุณอยากทำอะไร?',
     options: [
       { text: 'มุดตัวอยู่เงียบ ๆ คนเดียว\nขอชาร์จแบตให้เต็มก่อน',          scores: { depth:3, thinker:2, observer:1 } },
-      { text: 'ออกไปเที่ยวข้างนอก เปลี่ยนที่\nไปเรื่อย ๆ ให้ลืมเรื่องแย่ ๆ', scores: { freeSpirit:3, entertainer:2, sunshine:1 } },
-      { text: 'นัดเจอหรือโทรคุยกับคนที่ไว้ใจ\nนั่งระบายจนกว่าจะโล่ง',       scores: { listener:2, backbone:2, guardian:2 } },
+      { text: 'ออกไปเที่ยวข้างนอก เปลี่ยนที่\nไปเรื่อย ๆ ให้ลืมเรื่องแย่ ๆ', scores: { freeSpirit:3, sunshine:2 } },
+      { text: 'นัดเจอหรือโทรคุยกับคนที่ไว้ใจ\nนั่งระบายจนกว่าจะโล่ง',       scores: { listener:3, backbone:3 } },
       { text: 'หาอะไรที่ชอบทำ\nหมกมุ่นกับมันจนลืมเวลาไปเลย',              scores: { dreamer:3, depth:1, freeSpirit:2 } },
     ],
   },
-  // BREAK 1 after q3
   {
     id: 'q4',
-    text: 'ในกลุ่มเพื่อน\nคุณมักเป็น...',
+    text: 'ในกลุ่มเพื่อน คุณมักเป็น...',
     options: [
-      { text: 'พส.คนดี คอยเช็กว่าเพื่อน ๆ\nโอเคกันไหม',      scores: { guardian:3, listener:2, backbone:1 } },
-      { text: 'ตัวเปิด ชวนทุกคนออกไป\nลองอะไรใหม่ ๆ',       scores: { freeSpirit:3, sunshine:2, entertainer:1 } },
-      { text: 'คนสร้างบรรยากาศ\nคอยเบรกความเครียดในวง',    scores: { entertainer:3, sunshine:2, freeSpirit:1 } },
+      { text: 'พส.คนดี คอยเช็กว่าเพื่อน ๆ\nโอเคกันไหม',      scores: { listener:3, backbone:2 } },
+      { text: 'ตัวเปิด ชวนทุกคนออกไป\nลองอะไรใหม่ ๆ',       scores: { freeSpirit:3, sunshine:2 } },
+      { text: 'คนสร้างบรรยากาศ\nคอยเบรกความเครียดในวง',    scores: { sunshine:3, freeSpirit:2 } },
       { text: 'คนคุมเกม\nคอยมองภาพรวมให้เพื่อน ๆ',         scores: { leader:3, observer:2, thinker:1 } },
     ],
   },
   {
     id: 'q5',
-    text: 'ถ้าเพื่อนมีปัญหา\nคุณจะ...',
+    text: 'ถ้าเพื่อนมีปัญหา คุณจะ...',
     options: [
-      { text: 'ตั้งใจฟังเงียบ ๆ ไม่ขัด\nให้เขาได้ระบายออกมาจนหมด', scores: { listener:3, guardian:2, depth:1 } },
-      { text: 'สวมร่างที่ปรึกษา\nช่วยหาวิธีแก้ปัญหาให้เดี๋ยวนี้เลย', scores: { leader:2, thinker:2, backbone:2 } },
-      { text: 'ไม่พูดเยอะ\nแค่อยู่ข้าง ๆ เป็นเพื่อนก็พอ',           scores: { guardian:3, listener:2, observer:1 } },
-      { text: 'ชวนออกไปทำอะไรสนุก ๆ\nดึงเพื่อนออกจากความเศร้า',    scores: { entertainer:3, sunshine:2, freeSpirit:1 } },
+      { text: 'ตั้งใจฟังเงียบ ๆ ไม่ขัด\nให้เขาได้ระบายออกมาจนหมด', scores: { listener:3, depth:1 } },
+      { text: 'สวมร่างที่ปรึกษา\nช่วยหาวิธีแก้ปัญหาให้เดี๋ยวนี้เลย', scores: { leader:3, thinker:2, backbone:2 } },
+      { text: 'ไม่พูดเยอะ\nแค่อยู่ข้าง ๆ เป็นเพื่อนก็พอ',           scores: { listener:3, observer:2 } },
+      { text: 'ชวนออกไปทำอะไรสนุก ๆ\nดึงเพื่อนออกจากความเศร้า',    scores: { sunshine:3, freeSpirit:2 } },
     ],
   },
   {
     id: 'q6',
-    text: 'สิ่งที่คุณให้คุณค่ากับมิตรภาพ\nมากที่สุดคือ...',
+    text: 'สิ่งที่คุณให้คุณค่ากับมิตรภาพมากที่สุดคือ...',
     options: [
       { text: 'ความซื่อสัตย์ พูดตรง ๆ ได้',            scores: { backbone:3, advocate:2, leader:1 } },
       { text: 'การเติบโตไปด้วยกัน',                    scores: { dreamer:2, depth:2, thinker:2 } },
-      { text: 'ความสนุกและความทรงจำดี ๆ',              scores: { sunshine:2, entertainer:2, freeSpirit:2 } },
-      { text: 'การยอมรับกันในแบบที่เป็น',              scores: { listener:3, guardian:2, depth:1 } },
+      { text: 'ความสนุกและความทรงจำดี ๆ',              scores: { sunshine:3, freeSpirit:2 } },
+      { text: 'การยอมรับกันในแบบที่เป็น',              scores: { listener:3, depth:1 } },
     ],
   },
-  // BREAK 2 after q6
   {
     id: 'q7',
-    text: 'อะไรที่ทำให้คุณรู้สึก\n"มีพลัง" ที่สุด?',
+    text: 'อะไรที่ทำให้คุณรู้สึก "มีพลัง" ที่สุด?',
     options: [
       { text: 'ได้ทำสิ่งที่ตัวเองเชื่อจริง ๆ',                  scores: { advocate:3, backbone:2, leader:1 } },
-      { text: 'ได้เห็นคนรอบข้างมีความสุข',                       scores: { guardian:2, listener:2, sunshine:2 } },
-      { text: 'ได้ลองอะไรใหม่ ๆ\nที่ไม่เคยทำมาก่อน',             scores: { freeSpirit:3, entertainer:2, dreamer:1 } },
+      { text: 'ได้เห็นคนรอบข้างมีความสุข',                       scores: { listener:3, sunshine:2 } },
+      { text: 'ได้ลองอะไรใหม่ ๆ\nที่ไม่เคยทำมาก่อน',             scores: { freeSpirit:3, dreamer:2 } },
       { text: 'ได้มีเวลาเงียบ ๆ กับตัวเอง',                      scores: { depth:3, thinker:2, observer:1 } },
     ],
   },
   {
     id: 'q8',
-    text: 'ถ้าเปรียบตัวเองเป็นโทนสี\nคุณคิดว่าคุณอยู่โทนสีไหน?',
+    text: 'ถ้าเปรียบตัวเองเป็นโทนสี คุณคิดว่าคุณอยู่โทนสีไหน?',
     options: [
-      { text: 'สีโทนร้อน', scores: { leader:2, sunshine:2, advocate:2 } },
+      { text: 'สีโทนร้อน', scores: { leader:3, sunshine:3, advocate:3 } },
       { text: 'สีโทนเย็น', scores: { thinker:2, listener:2, depth:2 } },
-      { text: 'สีเอิร์ธโทน', scores: { backbone:2, guardian:2, observer:2 } },
-      { text: 'สีพาสเทล', scores: { dreamer:2, freeSpirit:2, entertainer:2 } },
+      { text: 'สีเอิร์ธโทน', scores: { backbone:3, observer:3 } },
+      { text: 'สีพาสเทล', scores: { dreamer:3, freeSpirit:3 } },
     ],
   },
   {
     id: 'q9',
-    text: 'สิ่งที่คุณภูมิใจในตัวเอง\nมากที่สุดคือ...',
+    text: 'สิ่งที่คุณภูมิใจในตัวเองมากที่สุด คือ...',
     options: [
-      { text: 'ไม่เคยทิ้งคนที่สำคัญ',                          scores: { backbone:3, guardian:2, listener:1 } },
-      { text: 'กล้าเป็นตัวเองเสมอ',                            scores: { freeSpirit:3, advocate:2, entertainer:1 } },
-      { text: 'ทำให้คนอื่นยิ้มได้',                            scores: { sunshine:3, entertainer:2, listener:1 } },
+      { text: 'ไม่เคยทิ้งคนที่สำคัญ',                          scores: { backbone:3, listener:2 } },
+      { text: 'กล้าเป็นตัวเองเสมอ',                            scores: { freeSpirit:3, advocate:2 } },
+      { text: 'ทำให้คนอื่นยิ้มได้',                            scores: { sunshine:3, listener:1 } },
       { text: 'รู้จักตัวเองดีพอที่จะรู้ว่าต้องการอะไร',         scores: { depth:3, thinker:2, observer:1 } },
     ],
   },
-  // BREAK 3 after q9
   {
     id: 'q10',
     text: 'ถ้าขบวน Pride คือช่วงเวลาหนึ่งของชีวิต\nคุณอยากให้มันเป็นแบบไหน?',
     options: [
       { text: 'เดินช้า ๆ ค่อย ๆ\nซึมซับทุกอย่างรอบข้าง',              scores: { observer:3, depth:2, listener:1 } },
       { text: 'วิ่งนำหน้าขบวนไปเลย\nตื่นเต้น เร้าใจ ไม่ชอบรอใคร',    scores: { leader:3, freeSpirit:2, advocate:1 } },
-      { text: 'เดินเบียดเสียดท่ามกลางผู้คน\nรู้สึกว่าไม่ได้สู้คนเดียว', scores: { sunshine:2, entertainer:2, backbone:2 } },
-      { text: 'ยืนมองภาพรวมให้ชัดก่อน\nแล้วค่อยก้าวเข้าไปแบบมั่นใจ', scores: { thinker:3, dreamer:2, guardian:1 } },
+      { text: 'เดินเบียดเสียดท่ามกลางผู้คน\nรู้สึกว่าไม่ได้สู้คนเดียว', scores: { sunshine:3, backbone:3 } },
+      { text: 'ยืนมองภาพรวมให้ชัดก่อน\nแล้วค่อยก้าวเข้าไปแบบมั่นใจ', scores: { thinker:3, dreamer:2 } },
     ],
   },
 ];
@@ -338,7 +302,7 @@ const BREAKS = [
     steps: [
       {
         text: 'โอ้โห ....\nคุณน่าสนใจกว่าที่คิดไว้มากเลยนะ !',
-        charStyle: 'break1a', // blue blob with glasses, mouth open
+        charStyle: 'break1a',
         hasSkip: true,
       },
       {
@@ -370,7 +334,7 @@ const BREAKS = [
         text: 'ขบวนกำลังเริ่มเคลื่อน\nและมีที่ว่างสำหรับคุณอยู่เสมอ',
         charStyle: 'break3',
         hasBtn: true, btnText: 'ไปต่อเลย →',
-        isLastQ: true,  // triggers lastq screen next
+        isLastQ: true,
       },
     ],
   },
@@ -383,7 +347,9 @@ function calculateResult(answers) {
   answers.forEach(({ qIndex, optionIndex }) => {
     const opt = QUESTIONS[qIndex].options[optionIndex];
     Object.entries(opt.scores).forEach(([charId, pts]) => {
-      scores[charId] = (scores[charId] || 0) + pts;
+      if (scores.hasOwnProperty(charId)) {
+        scores[charId] = (scores[charId] || 0) + pts;
+      }
     });
   });
   let topId = null, topScore = -1;

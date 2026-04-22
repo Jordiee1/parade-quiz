@@ -18,15 +18,12 @@
         <img src="images/logopride.png" alt="Logo" width="270px" style="height: auto;"/>
       </div>
     </div>
-
     <div class="intro-spacer"></div>
-
     <div class="intro-text-block">
       <h1 class="intro-heading">คุณเป็นใครใน</h1>
       <h1 class="intro-heading big">PRIDE PARADE</h1>
       <button class="btn-main" onclick="goToOnboarding()">เริ่มทำแบบทดสอบ →</button>
     </div>
-
     <div class="intro-scene">
       <div class="intro-bubbles">
         <div class="intro-bubble-left">
@@ -41,96 +38,49 @@
       <img src="images/home_cha1.png" class="intro-char intro-char-1" alt="Character 1"/>
       <img src="images/homecha_2.png" class="intro-char intro-char-2" alt="Character 2"/>
     </div>
-
   </div>
 
-  <!-- ===== ONBOARDING 1: ถึงเวลาเช็กอิน ===== -->
-  <div class="screen" id="screen-onboard1">
-    <div class="top-bar">
-      <div class="logos-small">
-        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
-        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
-      </div>
-      <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:5%"></div></div>
-    </div>
-    <div class="onboard-scene">
-      <div class="speech-bubble center big-bubble fade-in-up">
-        <span>ถึงเวลาเช็กอินตำแหน่งหัวใจ...</span>
-      </div>
-      <div class="onboard-character main-char fade-in-up" style="animation-delay:0.2s">
-        <div class="main-char-body"></div>
-        <div class="main-char-flag">🏳️‍🌈</div>
-      </div>
-      <div class="onboard-side-chars">
-        <div class="side-char left" style="--c:#ffb870;animation-delay:0.4s"></div>
-        <div class="side-char right" style="--c:#a8d8f0;animation-delay:0.6s"></div>
-      </div>
-    </div>
-    <button class="btn-skip" onclick="goToOnboard2()">skip →</button>
+  <!-- ===== ONBOARDING 1: Hello ===== -->
+  <div class="screen" id="screen-hello">
+    <div class="hello-text" id="helloText">สวัสดี!</div>
   </div>
 
-  <!-- ===== ONBOARDING 2: นี่คือขบวนแห่งความภูมิใจ ===== -->
+  <!-- ===== ONBOARDING 2: Scene 1 — intro ===== -->
   <div class="screen" id="screen-onboard2">
     <div class="top-bar">
-      <div class="logos-small">
-        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
-        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
-      </div>
+      <div class="logos"><img src="images/logopride.png" alt="Logo" width="200" style="height:auto;"/></div>
       <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:5%"></div></div>
     </div>
-    <div class="onboard-scene">
-      <div class="speech-bubble center big-bubble fade-in-up">
-        <span>นี่คือ "ขบวนแห่งความภูมิใจ"<br/>และต่อจากนี้... คือพื้นที่<br/>ที่คุณจะได้ประกาศตัวตน 🌈</span>
-      </div>
-      <div class="onboard-character main-char fade-in-up" style="animation-delay:0.2s">
-        <div class="main-char-body"></div>
-        <div class="main-char-flag">🏳️‍🌈</div>
-      </div>
-      <div class="onboard-side-chars">
-        <div class="side-char left" style="--c:#ffb870;animation-delay:0.4s"></div>
-        <div class="side-char right" style="--c:#a8d8f0;animation-delay:0.6s"></div>
+    <div class="ob-scene" id="ob2-scene">
+      <img src="images/char2_scene1.png" class="ob-char ob2-left"  id="ob2-left"  alt=""/>
+      <img src="images/char3_scene1.png" class="ob-char ob2-right" id="ob2-right" alt=""/>
+      <img src="images/char_scene1.png"  class="ob-char ob2-main"  id="ob2-main"  alt=""/>
+      <div class="ob-bubble ob2-bubble" id="ob2-bubble">
+        <p class="ob-typing-text" id="ob2-text"></p>
       </div>
     </div>
-    <button class="btn-skip" onclick="goToOnboard3()">skip →</button>
-  </div>
-
-  <!-- ===== ONBOARDING 3: เลือกคำตอบที่ใช่ ===== -->
-  <div class="screen" id="screen-onboard3">
-    <div class="top-bar">
-      <div class="logos-small">
-        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
-        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
-      </div>
-      <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:5%"></div></div>
+    <div class="ob-footer">
+      <button class="btn-skip" id="ob2-skip" onclick="ob2SkipAll()">skip →</button>
+      <button class="btn-main start-btn ob-action-btn" id="ob2-start" onclick="startQuiz()">มาเริ่มกันเลย!</button>
     </div>
-    <div class="onboard-scene">
-      <div class="speech-bubble center big-bubble fade-in-up">
-        <span>เลือกคำตอบที่ใช่<br/>แล้วก้าวเดินไปในแบบที่เป็นคุณ ✨</span>
-      </div>
-      <div class="onboard-character main-char fade-in-up" style="animation-delay:0.2s">
-        <div class="main-char-body"></div>
-        <div class="main-char-flag">🏳️‍🌈</div>
-      </div>
-      <div class="onboard-side-chars">
-        <div class="side-char left" style="--c:#ffb870;animation-delay:0.4s"></div>
-        <div class="side-char right" style="--c:#a8d8f0;animation-delay:0.6s"></div>
-      </div>
-    </div>
-    <button class="btn-main start-btn" onclick="startQuiz()">มาเริ่มกันเลย!</button>
   </div>
 
   <!-- ===== QUESTION SCREEN ===== -->
   <div class="screen" id="screen-question">
+    <!-- floating bg characters -->
+    <div class="q-deco" aria-hidden="true">
+      <img src="images/The Leader.png"     class="q-deco-img q-deco-1" alt=""/>
+      <img src="images/The Dreamer.png"    class="q-deco-img q-deco-2" alt=""/>
+      <img src="images/The Sunshine.png"   class="q-deco-img q-deco-3" alt=""/>
+      <img src="images/The Free Spirit.png" class="q-deco-img q-deco-4" alt=""/>
+      <img src="images/The Thinker.png"    class="q-deco-img q-deco-5" alt=""/>
+    </div>
     <div class="top-bar">
-      <div class="logos-small">
-        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
-        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
-      </div>
+      <div class="logos"><img src="images/logopride.png" alt="Logo" width="200" style="height:auto;"/></div>
       <div class="rainbow-progress-wrap">
         <div class="rainbow-progress" id="qProgress"></div>
       </div>
     </div>
-
     <div class="question-area">
       <div class="question-card" id="questionCard">
         <h2 class="question-text" id="questionText">Loading...</h2>
@@ -139,66 +89,76 @@
     </div>
   </div>
 
-  <!-- ===== BREAK SCREEN ===== -->
-  <div class="screen" id="screen-break">
+  <!-- ===== ONBOARDING 4: Scene 2 — break after q3 ===== -->
+  <div class="screen" id="screen-onboard4">
     <div class="top-bar">
-      <div class="logos-small">
-        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
-        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
-      </div>
-      <div class="rainbow-progress-wrap">
-        <div class="rainbow-progress" id="breakProgress"></div>
+      <div class="logos"><img src="images/logopride.png" alt="Logo" width="200" style="height:auto;"/></div>
+      <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:35%"></div></div>
+    </div>
+    <div class="ob-scene" id="ob4-scene">
+      <img src="images/char2_scene2.png" class="ob-char ob4-left"  id="ob4-left"  alt=""/>
+      <img src="images/char3_scene2.png" class="ob-char ob4-right" id="ob4-right" alt=""/>
+      <img src="images/char_scene2.png"  class="ob-char ob4-main"  id="ob4-main"  alt=""/>
+      <div class="ob-bubble ob4-bubble" id="ob4-bubble">
+        <p class="ob-typing-text" id="ob4-text"></p>
       </div>
     </div>
-
-    <div class="break-scene">
-      <div class="speech-bubble center big-bubble" id="breakBubble">
-        <span id="breakText">...</span>
-      </div>
-      <div class="break-characters" id="breakChars"></div>
-    </div>
-
-    <button class="btn-main break-btn" id="breakBtn" onclick="continueFromBreak()">ไปต่อเลย →</button>
-  </div>
-
-  <!-- ===== LAST Q INTRO ===== -->
-  <div class="screen" id="screen-lastq">
-    <div class="top-bar">
-      <div class="logos-small">
-        <span class="logo-text-patch sm">PATCH THE WORLD<br/><em>— WITH PRIDE —</em></span>
-        <span class="logo-text-bkk sm">🏳️‍🌈 BANGKOK PRIDE</span>
-      </div>
-      <div class="rainbow-progress-wrap">
-        <div class="rainbow-progress" style="width:90%"></div>
-      </div>
-    </div>
-    <div class="break-scene">
-      <div class="parade-mini">
-        <div class="mini-flags">🏳️‍🌈🏳️‍⚧️🏳️‍🌈🏳️‍⚧️🏳️‍🌈</div>
-        <div class="mini-chars-row">
-          <div class="mini-char" style="--c:#a8d8f0"></div>
-          <div class="mini-char" style="--c:#ffb8c8"></div>
-          <div class="mini-char" style="--c:#a8d8f0"></div>
-          <div class="mini-char" style="--c:#d4b8f0"></div>
-          <div class="mini-char" style="--c:#c8a8f0"></div>
-        </div>
-      </div>
-      <div class="speech-bubble center big-bubble fade-in-up">
-        <span>คำถามสุดท้ายแล้ว<br/>ตอบให้ตรงใจที่สุดนะ :)</span>
-      </div>
-      <div class="lastq-char-big fade-in-up" style="animation-delay:0.2s">
-        <div class="main-char-body big"></div>
-        <div class="main-char-flag">🏳️‍🌈</div>
-      </div>
+    <div class="ob-footer">
+      <button class="btn-main start-btn ob-action-btn" id="ob4-btn" onclick="continueToSet2()">ไปกันต่อเลย!</button>
     </div>
   </div>
 
-  <!-- ===== OUTRO / RESULT SCREEN ===== -->
+  <!-- ===== ONBOARDING 6: Scene 3 — break after q6 ===== -->
+  <div class="screen" id="screen-onboard6">
+    <div class="top-bar">
+      <div class="logos"><img src="images/logopride.png" alt="Logo" width="200" style="height:auto;"/></div>
+      <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:65%"></div></div>
+    </div>
+    <div class="ob6-scene" id="ob6-scene">
+     <img src="images/char_scene3.png" class="ob-char ob6-left slide-in" id="ob6-left" alt="" style="
+    margin-top: 180px;
+    left: 0px !important;
+    /* left: 100px; */
+    /* justify-items: left; */
+">
+      <img src="images/char2_scene3.png" class="ob-char ob6-right slide-in" id="ob6-right" alt="" style="
+    right: 0px !important;
+">
+      <div class="ob-bubble ob6-bubble" id="ob6-bubble">
+        <p class="ob-typing-text" id="ob6-text"></p>
+      </div>
+    </div>
+    <div class="ob-footer">
+      <button class="btn-main start-btn ob-action-btn" id="ob6-btn" onclick="continueToSet3()">ไปกันต่อเลย!</button>
+    </div>
+  </div>
+
+  <!-- ===== ONBOARDING 8: Scene 4 — break after q9 ===== -->
+  <div class="screen" id="screen-onboard8">
+    <div class="top-bar">
+      <div class="logos"><img src="images/logopride.png" alt="Logo" width="200" style="height:auto;"/></div>
+      <div class="rainbow-progress-wrap"><div class="rainbow-progress" style="width:90%"></div></div>
+    </div>
+    <div class="ob8-scene" id="ob8-scene">
+<img src="images/char2_scene4.png" class="ob-char ob8-topright slide-in" id="ob8-topright" alt="" style="
+    margin-top: 80px !important;
+">      <img src="images/char_scene4.png" class="ob-char ob8-botleft slide-in" id="ob8-botleft" alt="" style="
+    left: 20px;
+    /* margin-top: -50px !important; */
+">
+     <div class="ob-bubble ob8-bubble show" id="ob8-bubble" style="
+    margin-top: 100px;
+">
+        <p class="ob-typing-text done" id="ob8-text">คำถามสุดท้ายแล้ว
+ตอบให้ตรงใจที่สุดนะ :)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RESULT SCREEN ===== -->
   <div class="screen" id="screen-result">
-    <div class="result-header" id="resultHeader">
-      <!-- character art fills here -->
-    </div>
-    <div class="result-body">
+    <div class="result-header" id="resultHeader"></div>
+    <div class="result-body" style="transform: translateY(-30px);">
       <div class="result-card" id="resultCard">
         <h2 class="result-name" id="resultName">The Leader</h2>
         <p class="result-tagline" id="resultTagline">"หัวหน้าที่ใครก็ตามได้"</p>
@@ -216,10 +176,10 @@
       </div>
       <div class="result-actions">
         <button class="btn-save" onclick="saveImage()">
-          <span class="btn-icon">⬇</span> save image
+          <span class="btn-icon">⬇</span> บันทึกรูปภาพ
         </button>
         <button class="btn-playagain" onclick="retryQuiz()">
-          <span class="btn-icon">↺</span> play again
+          <span class="btn-icon">↺</span> เล่นใหม่
         </button>
       </div>
     </div>

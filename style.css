@@ -86,8 +86,14 @@ body {
   padding: 18px 20px 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 12px;
   flex-shrink: 0;
+}
+
+.top-bar .logos {
+  display: flex;
+  justify-content: center;
 }
 
 .logos-small {
@@ -149,8 +155,8 @@ body {
    ===================================================== */
 #screen-intro {
   background-image: url('images/homepage.png');
-  background-size: cover;
-  background-position: center top;
+  background-size: 100% auto;
+  background-position: top center;
   justify-content: flex-start;
   gap: 0;
 }
@@ -1026,8 +1032,9 @@ body {
 }
 .match-label {
   font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 0.78rem;
+  font-size: 1rem;
   font-weight: 600;
+  text-align: center;
   color: var(--text-light);
   display: block;
   margin-bottom: 10px;
@@ -1036,6 +1043,8 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+  justify-content: center; /* เพิ่มบรรทัดนี้เพื่อให้เนื้อหาข้างในอยู่ตรงกลาง */
+  width: 100%;             /* มั่นใจว่ากล่องกว้างเต็มการ์ด */
 }
 .match-char-mini {
   width: 52px; height: 58px;
@@ -1054,7 +1063,7 @@ body {
   display: block;
 }
 .match-char-th {
-  font-size: 0.82rem;
+  font-size: 1.10rem;
   color: var(--text-light);
 }
 
@@ -1064,17 +1073,20 @@ body {
 }
 .parade-label {
   font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 0.78rem;
+  font-size: 1rem;
+  text-align: center;
   font-weight: 600;
   color: var(--text-light);
   display: block;
   margin-bottom: 8px;
 }
 .parade-dots {
-  display: flex;
+ display: flex;
+  justify-content: center; /* จัดจุดสีให้อยู่ตรงกลาง */
   align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 15px;               /* ระยะห่างระหว่างขบวนสี */
+  flex-wrap: wrap;         /* เผื่อกรณีมือถือจอแคบ ให้มันลงมาบรรทัดใหม่ได้ */
+  width: 100%;
 }
 .parade-dot {
   display: flex;
@@ -1212,4 +1224,454 @@ body {
 @keyframes dotBounce {
   from { transform: translateY(0) scale(1); }
   to   { transform: translateY(-10px) scale(1.2); }
+}
+
+/* =====================================================
+   NEW ONBOARDING SCREENS — v3
+   ===================================================== */
+
+/* ── HELLO SCREEN ── */
+#screen-hello {
+  background: linear-gradient(160deg, #f8f0ff 0%, #f0f8ff 100%);
+  align-items: center;
+  justify-content: center;
+}
+.hello-text {
+  font-family: 'LINE Seed Sans TH', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  text-align: center;
+}
+.hello-text.visible { opacity: 1; }
+
+/* ── NEW ONBOARD SCREENS background ── */
+#screen-onboard2, #screen-onboard4, #screen-onboard6, #screen-onboard8 {
+  background: linear-gradient(160deg, #f8f0ff 0%, #ede0ff 40%, #ddf0ff 100%);
+  justify-content: space-between;
+}
+
+/* ── SHARED ob-scene ── */
+.ob-scene {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+/* ── SHARED ob-char ── */
+.ob-char {
+  position: absolute;
+  display: block;
+}
+
+/* ── SHARED ob-bubble ── */
+.ob-bubble {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50px;
+  padding: 20px 30px;
+  box-shadow: 0 4px 24px rgba(160,120,220,0.18);
+  font-family: 'LINE Seed Sans TH', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-dark);
+  line-height: 1.65;
+  z-index: 10;
+  min-width: 180px;
+  max-width: 80%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.ob-bubble.show { opacity: 1; }
+
+.ob-typing-text {
+  display: block;
+  white-space: pre-wrap;
+}
+.ob-typing-text::after {
+  content: '|';
+  display: inline;
+  margin-left: 1px;
+  color: var(--purple);
+  animation: cursorBlink 0.65s infinite;
+}
+.ob-typing-text.done::after { display: none; }
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── SHARED ob-footer ── */
+.ob-footer {
+  width: 100%;
+  padding: 16px 24px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ob-action-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+.ob-action-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--sel-grad);
+  opacity: 0.08;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.ob-action-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ─────────────────────────────────────
+   ONBOARD 2 — scene1 chars
+───────────────────────────────────── */
+.ob2-main {
+  width: 235px; height: auto;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: 2;
+}
+.ob2-main.slide-in {
+  animation: ob2MainIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes ob2MainIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(40px) scale(0.88); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0)    scale(1);    }
+}
+
+.ob2-left {
+  width: 100px; height: auto;
+  left: -110px; bottom: 30px;
+  opacity: 0; z-index: 1;
+  filter: blur(3px);
+}
+.ob2-left.slide-in {
+  animation: ob2LeftIn 0.75s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+}
+@keyframes ob2LeftIn {
+  from { left: -110px; opacity: 0; }
+  to   { left: -8px;   opacity: 0.85; }
+}
+
+.ob2-right {
+  width: 100px; height: auto;
+  right: -110px; bottom: 30px;
+  opacity: 0; z-index: 1;
+  filter: blur(3px);
+}
+.ob2-right.slide-in {
+  animation: ob2RightIn 0.75s cubic-bezier(0.22,1,0.36,1) 0.45s forwards;
+}
+@keyframes ob2RightIn {
+  from { right: -110px; opacity: 0; }
+  to   { right: -8px;   opacity: 0.85; }
+}
+
+.ob2-bubble {
+   top: 100px;
+  left: 35px;
+  transform: translateX(0%);
+  text-align: center;
+  max-width: 100%;
+}
+
+/* ─────────────────────────────────────
+   ONBOARD 4 — scene2 chars
+───────────────────────────────────── */
+.ob4-main {
+  width: 265px; height: auto;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0; z-index: 2;
+}
+.ob4-main.slide-in {
+  animation: ob4MainIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes ob4MainIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(40px) scale(0.88); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0)    scale(1);    }
+}
+
+.ob4-left {
+  width: 105px; height: auto;
+  left: -115px; bottom: 30px;
+  opacity: 0; z-index: 1;
+  filter: blur(3px);
+}
+.ob4-left.slide-in {
+  animation: ob4LeftIn 0.75s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+}
+@keyframes ob4LeftIn {
+  from { left: -115px; opacity: 0; }
+  to   { left: -8px;   opacity: 0.85; }
+}
+
+.ob4-right {
+  width: 105px; height: auto;
+  right: -115px; bottom: 30px;
+  opacity: 0; z-index: 1;
+  filter: blur(3px);
+}
+.ob4-right.slide-in {
+  animation: ob4RightIn 0.75s cubic-bezier(0.22,1,0.36,1) 0.45s forwards;
+}
+@keyframes ob4RightIn {
+  from { right: -115px; opacity: 0; }
+  to   { right: -8px;   opacity: 0.85; }
+}
+
+.ob4-bubble {
+  top: 100px;
+  left: 60px;
+  transform: translateX(0%);
+  text-align: center;
+  max-width: 100%;
+}
+
+/* ─────────────────────────────────────
+   ONBOARD 6 — scene3 diagonal
+───────────────────────────────────── */
+.ob6-scene {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+.ob6-left {
+  width: 240px; height: auto;
+  position: absolute;
+  top: 0; left: -260px;
+  opacity: 0; z-index: 2;
+}
+.ob6-left.slide-in {
+  animation: ob6LeftIn 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes ob6LeftIn {
+  from { left: -260px; opacity: 0; }
+  to   { left: -55px;  opacity: 1; }
+}
+
+.ob6-right {
+  width: 240px; height: auto;
+  position: absolute;
+  bottom: 0; right: -260px;
+  opacity: 0; z-index: 2;
+}
+.ob6-right.slide-in {
+  animation: ob6RightIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+}
+@keyframes ob6RightIn {
+  from { right: -260px; opacity: 0; }
+  to   { right: -55px;  opacity: 1; }
+}
+
+.ob6-bubble {
+  position: absolute;
+  top: 100px;
+  left: 45px;
+  transform: translate(0%, 0%);
+  max-width: 100%;
+  text-align: center;
+}
+
+/* ─────────────────────────────────────
+   ONBOARD 8 — scene4 large char
+───────────────────────────────────── */
+.ob8-scene {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+.ob8-botleft {
+  width: 400px; height: auto;
+  position: absolute;
+  bottom: -60px; left: -80px;
+  opacity: 0; z-index: 2;
+}
+.ob8-botleft.slide-in {
+  animation: ob8BotIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes ob8BotIn {
+  from { bottom: -180px; left: -80px; opacity: 0; }
+  to   { bottom: -60px;  left: -80px; opacity: 1; }
+}
+
+.ob8-topright {
+  width: 210px; height: auto;
+  position: absolute;
+  top: 0; right: -230px;
+  opacity: 0; z-index: 3;
+}
+.ob8-topright.slide-in {
+  animation: ob8TopIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.4s forwards;
+}
+@keyframes ob8TopIn {
+  from { right: -230px; opacity: 0; }
+  to   { right: -20px;  opacity: 1; }
+}
+
+.ob8-bubble {
+  top: 150px;
+  left: 60px;
+  transform: translateX(0%);
+  text-align: center;
+  max-width: 100%;
+}
+
+/* ─────────────────────────────────────
+   SAVE IMAGE LOADING STATE
+───────────────────────────────────── */
+.btn-save.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* =====================================================
+   RESULT SCREEN — v3 updates
+   ===================================================== */
+
+/* homepage.png at 10% as decorative bg */
+#screen-result {
+  position: relative;
+}
+#screen-result::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('images/homepage.png');
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  opacity: 0.10;
+  pointer-events: none;
+  z-index: 0;
+}
+#screen-result > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo bar in result header */
+.result-logo-bar {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.result-logo-img {
+  width: 170px;
+  height: auto;
+  display: block;
+}
+
+/* Result character image (PNG) */
+.result-char-img {
+  width: 120px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 12px 32px rgba(140,80,220,0.22));
+  animation: resultCharFloat 3.2s ease-in-out infinite;
+}
+
+/* match char row — small image version */
+.match-char-img {
+  width: 58px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.12));
+}
+
+/* Tighten result header height so logo+char fit */
+.result-header {
+  min-height: 310px;
+  padding-top: 56px;
+}
+
+/* =====================================================
+   QUESTION SCREEN — floating bg decoration
+   ===================================================== */
+.q-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.q-deco-img {
+  position: absolute;
+  opacity: 0.09;
+  object-fit: contain;
+}
+
+/* Top-left */
+.q-deco-1 {
+  width: 130px;
+  top: 55px; left: -38px;
+  animation: qdFloat1 5.5s ease-in-out infinite;
+}
+/* Bottom-right */
+.q-deco-2 {
+  width: 120px;
+  bottom: 60px; right: -32px;
+  animation: qdFloat2 6s ease-in-out infinite;
+}
+/* Top-right */
+.q-deco-3 {
+  width: 100px;
+  top: 120px; right: -28px;
+  animation: qdFloat1 7s ease-in-out 1s infinite;
+}
+/* Bottom-left */
+.q-deco-4 {
+  width: 110px;
+  bottom: 140px; left: -30px;
+  animation: qdFloat2 5s ease-in-out 0.5s infinite;
+}
+/* Mid-right faint */
+.q-deco-5 {
+  width: 90px;
+  top: 42%; right: -25px;
+  opacity: 0.06;
+  animation: qdFloat1 8s ease-in-out 2s infinite;
+}
+
+@keyframes qdFloat1 {
+  0%,100% { transform: translateY(0) rotate(-4deg); }
+  50%      { transform: translateY(-14px) rotate(-1deg); }
+}
+@keyframes qdFloat2 {
+  0%,100% { transform: translateY(0) rotate(4deg); }
+  50%      { transform: translateY(-12px) rotate(1deg); }
+}
+
+/* Make sure question-area sits above deco layer */
+#screen-question .top-bar,
+#screen-question .question-area {
+  position: relative;
+  z-index: 1;
 }
