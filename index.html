@@ -8,23 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+Sans+TH:wght@300;400;700;800&family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
-  <style>
-    /* Sarabun fallback — loads reliably on Vercel */
-    body { font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif; }
-  </style>
-  <script>
-    // Force-load font via FontFace API so canvas + CSS both get it
-    (function() {
-      var fonts = [
-        new FontFace('LINE Seed Sans TH', "url(https://fonts.gstatic.com/s/lineseedsansth/v5/fC1hPYBHe23MxU7rMzWAAQhfVCYIbAR_bAkToHIfXD8.woff2)", {weight:'400'}),
-        new FontFace('LINE Seed Sans TH', "url(https://fonts.gstatic.com/s/lineseedsansth/v5/fC1kPYBHe23MxU7rMzWAAQhfVCYIbAR_bAkToHIfXD8.woff2)", {weight:'700'}),
-        new FontFace('LINE Seed Sans TH', "url(https://fonts.gstatic.com/s/lineseedsansth/v5/fC1lPYBHe23MxU7rMzWAAQhfVCYIbAR_bAkToHIfXD8.woff2)", {weight:'800'}),
-      ];
-      fonts.forEach(function(f) {
-        f.load().then(function(loaded) { document.fonts.add(loaded); }).catch(function(){});
-      });
-    })();
-  </script>
 </head>
 <body>
 

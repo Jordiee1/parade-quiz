@@ -1,9 +1,8 @@
 /* =====================================================
    PRIDE QUIZ v2 — Reference-accurate stylesheet
    Theme: Soft pastel / light, mobile-first portrait
-   Font: LINE Seed Sans TH
+   Font: LINE Seed Sans TH (loaded via <link> in HTML)
    ===================================================== */
-@import url('https://fonts.googleapis.com/css2?family=LINE+Seed+Sans+TH:wght@300;400;700;800&display=swap');
 
 :root {
   /* Backgrounds */
@@ -38,8 +37,8 @@
   --pink:    #f060a0;
   --blue:    #60a8f8;
 
-  /* Sizing */
-  --max-w: 390px;
+  /* Sizing — 100% responsive, no fixed phone width */
+  --max-w: 100%;
   --radius-card: 28px;
   --radius-opt:  18px;
   --radius-btn:  100px;
@@ -53,7 +52,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 body {
-  font-family: 'LINE Seed Sans TH', sans-serif;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
   background: linear-gradient(160deg, var(--bg-top) 0%, var(--bg-mid) 40%, var(--bg-bot) 100%);
   min-height: 100vh;
   display: flex;
@@ -195,7 +194,7 @@ body {
 /* Intro scene — bottom strip for characters + bubbles */
 .intro-scene {
   width: 100%;
-  height: 230px;
+  height: clamp(200px, 48vw, 280px);
   flex-shrink: 0;
   position: relative;
   overflow: visible;
@@ -439,15 +438,15 @@ body {
 }
 
 .intro-heading {
-  font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 35px;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+  font-size: clamp(26px, 7.5vw, 42px);
   font-weight: 500;
   color: var(--text-dark);
   line-height: 1.15;
   margin-bottom: 4px;
 }
 .intro-heading.big {
-  font-size: 40px;
+  font-size: clamp(32px, 9vw, 50px);
   font-weight: 800;
   margin-bottom: 20px;
   letter-spacing: -0.5px;
@@ -458,8 +457,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 20px;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+  font-size: clamp(17px, 4.5vw, 21px);
   font-weight: 700;
   color: var(--text-dark);
   background: var(--white);
@@ -470,7 +469,7 @@ body {
   box-shadow: 0 4px 20px rgba(180,140,220,0.25);
   transition: transform 0.18s, box-shadow 0.18s;
   width: 88%;
-  max-width: 320px;
+  max-width: min(320px, 88%);
 }
 .btn-main:hover  { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(180,140,220,0.35); }
 .btn-main:active { transform: scale(0.97); }
@@ -700,8 +699,8 @@ body {
 }
 
 .question-text {
-  font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 1.25rem;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+  font-size: clamp(1rem, 4vw, 1.3rem);
   font-weight: 700;
   color: var(--text-dark);
   text-align: center;
@@ -722,8 +721,8 @@ body {
   border: 1.5px solid rgba(220,200,255,0.5);
   border-radius: var(--radius-opt);
   padding: 14px 18px;
-  font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 0.97rem;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+  font-size: clamp(0.88rem, 3.5vw, 1rem);
   font-weight: 500;
   color: var(--text-dark);
   text-align: center;
@@ -991,8 +990,8 @@ body {
 }
 
 .result-name {
-  font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 2.4rem;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+  font-size: clamp(1.9rem, 6.5vw, 2.6rem);
   font-weight: 900;
   color: var(--text-dark);
   text-align: center;
@@ -1157,8 +1156,8 @@ body {
   justify-content: center;
 }
 .hello-text {
-  font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 3rem;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
   font-weight: 900;
   color: var(--text-dark);
   animation: helloZoom 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
@@ -1185,21 +1184,25 @@ body {
 }
 
 /* =====================================================
-   RESPONSIVE
+   RESPONSIVE — 100% fluid layout
    ===================================================== */
-@media (min-width: 430px) {
-  body { background: #e8deff; }
+
+/* Tablet and up: center a comfortable column */
+@media (min-width: 640px) {
   .screen {
+    max-width: 640px;
     margin: 0 auto;
-    box-shadow: 0 0 80px rgba(140,100,200,0.15);
+    box-shadow: 0 0 80px rgba(140,100,200,0.12);
+  }
+  body {
+    background: linear-gradient(160deg, var(--bg-top) 0%, var(--bg-mid) 40%, var(--bg-bot) 100%);
   }
 }
 
+/* Very small phones */
 @media (max-width: 360px) {
-  .intro-heading.big { font-size: 2.4rem; }
-  .question-text { font-size: 1.1rem; }
-  .option-btn { font-size: 0.9rem; padding: 12px 14px; }
-  .result-name { font-size: 2rem; }
+  .intro-heading.big { font-size: clamp(28px, 9vw, 36px); }
+  .option-btn { padding: 12px 14px; }
 }
 
 /* ─── UTILITY ─── */
@@ -1238,8 +1241,8 @@ body {
   justify-content: center;
 }
 .hello-text {
-  font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 3.5rem;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+  font-size: clamp(2.5rem, 9vw, 4rem);
   font-weight: 900;
   color: var(--text-dark);
   opacity: 0;
@@ -1275,8 +1278,8 @@ body {
   border-radius: 50px;
   padding: 20px 30px;
   box-shadow: 0 4px 24px rgba(160,120,220,0.18);
-  font-family: 'LINE Seed Sans TH', sans-serif;
-  font-size: 20px;
+  font-family: 'LINE Seed Sans TH', 'Sarabun', sans-serif;
+  font-size: clamp(15px, 4.5vw, 20px);
   font-weight: 400;
   color: var(--text-dark);
   line-height: 1.65;
@@ -1341,7 +1344,7 @@ body {
    ONBOARD 2 — scene1 chars
 ───────────────────────────────────── */
 .ob2-main {
-  width: 235px; height: auto;
+  width: min(235px, 58vw); height: auto;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -1357,7 +1360,7 @@ body {
 }
 
 .ob2-left {
-  width: 100px; height: auto;
+  width: min(100px, 25vw); height: auto;
   left: -110px; bottom: 30px;
   opacity: 0; z-index: 1;
   filter: blur(3px);
@@ -1371,7 +1374,7 @@ body {
 }
 
 .ob2-right {
-  width: 100px; height: auto;
+  width: min(100px, 25vw); height: auto;
   right: -110px; bottom: 30px;
   opacity: 0; z-index: 1;
   filter: blur(3px);
@@ -1396,7 +1399,7 @@ body {
    ONBOARD 4 — scene2 chars
 ───────────────────────────────────── */
 .ob4-main {
-  width: 265px; height: auto;
+  width: min(265px, 65vw); height: auto;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -1411,7 +1414,7 @@ body {
 }
 
 .ob4-left {
-  width: 105px; height: auto;
+  width: min(105px, 26vw); height: auto;
   left: -115px; bottom: 30px;
   opacity: 0; z-index: 1;
   filter: blur(3px);
@@ -1425,7 +1428,7 @@ body {
 }
 
 .ob4-right {
-  width: 105px; height: auto;
+  width: min(105px, 26vw); height: auto;
   right: -115px; bottom: 30px;
   opacity: 0; z-index: 1;
   filter: blur(3px);
@@ -1457,7 +1460,7 @@ body {
 }
 
 .ob6-left {
-  width: 240px; height: auto;
+  width: min(240px, 60vw); height: auto;
   position: absolute;
   top: 0; left: -260px;
   opacity: 0; z-index: 2;
@@ -1471,7 +1474,7 @@ body {
 }
 
 .ob6-right {
-  width: 240px; height: auto;
+  width: min(240px, 60vw); height: auto;
   position: absolute;
   bottom: 0; right: -260px;
   opacity: 0; z-index: 2;
@@ -1504,7 +1507,7 @@ body {
 }
 
 .ob8-botleft {
-  width: 400px; height: auto;
+  width: min(400px, 95vw); height: auto;
   position: absolute;
   bottom: -60px; left: -80px;
   opacity: 0; z-index: 2;
@@ -1518,7 +1521,7 @@ body {
 }
 
 .ob8-topright {
-  width: 210px; height: auto;
+  width: min(210px, 52vw); height: auto;
   position: absolute;
   top: 0; right: -230px;
   opacity: 0; z-index: 3;
@@ -1588,7 +1591,7 @@ body {
 
 /* Result character image (PNG) */
 .result-char-img {
-  width: 120px;
+  width: clamp(100px, 28vw, 140px);
   height: auto;
   display: block;
   margin: 0 auto;

@@ -372,7 +372,7 @@ function showOutro() {
     'display:flex', 'flex-direction:column', 'align-items:center',
     'justify-content:center', 'gap:24px',
     'background:linear-gradient(160deg,#f8f0ff 0%,#ede0ff 40%,#e0f0ff 100%)',
-    'min-height:100svh', 'max-width:390px', 'margin:0 auto',
+    'min-height:100svh', 'width:100%',
     'animation:screenFadeIn 0.4s both',
   ].join(';');
 
