@@ -577,13 +577,13 @@ async function saveImage() {
     nameGrad.addColorStop(0,   '#7730d0');
     nameGrad.addColorStop(0.5, '#b060f0');
     nameGrad.addColorStop(1,   '#e050a0');
-    ctx.font = `900 94px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.font = `900 94px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
     ctx.fillStyle = nameGrad;
     ctx.fillText(char.name, W / 2, cy + 90);
     cy += 120;
 
     // ── Tagline ──
-    ctx.font = `600 44px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.font = `600 44px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
     ctx.fillStyle = '#9966bb';
     ctx.fillText(char.tagline, W / 2, cy + 44);
     cy += 78;
@@ -597,7 +597,7 @@ async function saveImage() {
     cy += 48;
 
     // ── Description box ──
-    ctx.font = `400 40px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.font = `400 40px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
     const descLines = _wrap(ctx, char.desc, PW - 40);
     const descBoxH = descLines.length * 64 + 48;
     ctx.fillStyle = 'rgba(240,234,255,0.62)';
@@ -609,7 +609,7 @@ async function saveImage() {
 
     // ── Match section label ──
     cy += 26;
-    ctx.font = `500 34px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.font = `500 34px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
     ctx.fillStyle = '#aaaacc'; ctx.textAlign = 'left';
     ctx.fillText('คุณเข้ากันได้ดีกับ...', PX, cy + 34);
     cy += 62;
@@ -620,10 +620,10 @@ async function saveImage() {
       _rrect(ctx, PX, cy, PW, 150, 24); ctx.fill();
       ctx.drawImage(matchImg, PX + 22, cy + 15, mW, mH);
       const tx = PX + mW + 44;
-      ctx.font = `700 44px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+      ctx.font = `700 44px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
       ctx.fillStyle = '#1a1a2e';
       ctx.fillText(matchChar.name, tx, cy + 64);
-      ctx.font = `400 36px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+      ctx.font = `400 36px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
       ctx.fillStyle = '#888899';
       ctx.fillText(matchChar.thai, tx, cy + 114);
     }
@@ -632,12 +632,12 @@ async function saveImage() {
     // ── Parade section ──
     if (char.parades && char.parades.length) {
       cy += 24;
-      ctx.font = `500 34px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+      ctx.font = `500 34px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
       ctx.fillStyle = '#aaaacc'; ctx.textAlign = 'left';
       ctx.fillText('คุณเหมาะกับ...', PX, cy + 34);
       cy += 62;
       // Center parade dots
-      ctx.font = `600 38px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+      ctx.font = `600 38px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
       const DR = 18, DG = 18, IG = 50;
       const items = char.parades.map(p => ({ ...p, tw: ctx.measureText(p.label).width }));
       const totalW = items.reduce((s, p) => s + DR * 2 + DG + p.tw, 0) + IG * (items.length - 1);
@@ -659,7 +659,7 @@ async function saveImage() {
       rbFoot.addColorStop(i / (a.length - 1), c));
     _rrect(ctx, CX + 80, footY - 18, CW - 160, 5, 3);
     ctx.fillStyle = rbFoot; ctx.fill();
-    ctx.font = `500 32px "LINE Seed Sans TH", "Sarabun", sans-serif`;
+    ctx.font = `500 32px "LINE Seed Sans TH", "Noto Sans Thai", sans-serif`;
     ctx.fillStyle = 'rgba(140,100,210,0.72)';
     ctx.textAlign = 'center';
     ctx.fillText('#PatchTheWorld   #BangkokPride', W / 2, footY + 28);
